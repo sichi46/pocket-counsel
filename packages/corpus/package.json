@@ -1,0 +1,9 @@
+{
+  "name": "@pocket-counsel/corpus",
+  "version": "1.0.0",
+  "description": "Zambian legal documents corpus for Pocket Counsel",
+  "private": true,
+  "scripts": {
+    "validate": "node scripts/validate.js"
+  }
+} 

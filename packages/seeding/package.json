@@ -1,0 +1,23 @@
+{
+  "name": "@pocket-counsel/seeding",
+  "version": "1.0.0",
+  "description": "Scripts to ingest legal corpus into Vertex AI",
+  "private": true,
+  "scripts": {
+    "ingest": "tsx src/ingest.ts",
+    "validate": "tsx src/validate.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google-cloud/vertexai": "^0.1.0",
+    "@pocket-counsel/shared": "file:../shared",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
