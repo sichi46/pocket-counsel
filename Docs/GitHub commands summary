@@ -1,0 +1,19 @@
+Git Commands Summary Table
+Command	Purpose	Example / Notes
+git init -	Initialize a local Git repo	Run in your project folder
+git clone <repo-url> -	Clone a remote Git repo to your computer	git clone https://github.com/username/repo.git
+git remote -v	Check current remote repo(s) linked	Shows fetch/push URLs
+git remote add origin <url>	Link your local repo to a remote	Fails if origin already exists
+git remote set-url origin <url>	Change the existing remote URL	Use when origin already exists
+git remote remove origin	Remove the current origin remote	Then you can add a new one
+git status	Check which files have been changed or staged	Good habit before committing
+git add .	Stage all changed files for commit	Use git add <filename> for specific files
+git commit -m "Message"	Commit staged changes	Descriptive messages help
+git branch	View branches; * shows current branch	Use this before pushing
+git branch -M main	Rename your current branch to main	Useful if GitHub default is main
+git checkout <branch>	Switch to another branch	Example: git checkout main
+git pull origin main	Pull updates from remote main	Use before pushing, especially with others
+git pull origin main --allow-unrelated-histories	Pull when local & remote started separately	Merges unrelated histories
+git push -u origin main	Push your commits to the main branch on GitHub	First push adds upstream tracking
+git push -u origin main --force	Force push (overwrite remote)	Use only when needed
+git log --oneline --graph --decorate	View recent commit history (simple format)	Great for quick branch/commit check

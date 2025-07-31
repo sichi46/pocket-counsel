@@ -1,0 +1,28 @@
+{
+  "name": "@pocket-counsel/seeding",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "ingest": "ts-node src/ingest.ts",
+    "query": "ts-node src/query.ts",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google-cloud/aiplatform": "^3.8.0",
+    "@google-cloud/storage": "^7.7.0",
+    "@pocket-counsel/shared": "workspace:*",
+    "pdf-parse": "^1.1.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/pdf-parse": "^1.1.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+} 

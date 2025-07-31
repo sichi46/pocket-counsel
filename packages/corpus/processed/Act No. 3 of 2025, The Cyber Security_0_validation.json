@@ -1,0 +1,10 @@
+{
+  "total_chunks": 51,
+  "total_characters": 49295,
+  "average_chunk_size": 966.5686274509804,
+  "small_chunks": 0,
+  "large_chunks": 0,
+  "chunks_with_sections": 1,
+  "chunks_with_titles": 40,
+  "quality_score": 0.6627450980392153
+}

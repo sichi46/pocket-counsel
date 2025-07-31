@@ -1,0 +1,12 @@
+GitHub
+git add . 
+git commit -m "message"
+git push -u origin main(If it's your first push or you just cloned and made a new branch)
+git push origin main 
+git branch branch-name(create a branch)
+git checkout branch-name(switch to new branch)
+
+FIREBASE
+pnpm run dev 
+pnpm run build
+

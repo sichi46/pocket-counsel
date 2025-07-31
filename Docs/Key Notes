@@ -1,0 +1,28 @@
+Key Notes, Links, Tools
+Links
+
+b. RAG App Assignment Submission
+c. Rubric 2. Business Model Canvas 3. RAG
+a. Beyond the Lecture - Intro RAG 4.
+Notes
+Starting a New Project
+
+1. Create Git Repository, clone repo locally, open in Cursor (start with Readme and .gitignore)
+2. Business Model Canvas + Basic Product Design - example
+3. Technical Design Doc - give Gemini chatbot your Product Design + the template, put in Cursor, in your repo, under /docs/technical-design-doc.md
+4. To Do - ask Gemini for it, put it under /docs/todo.md (make sure Milestone 1 is just basic setup)
+5. Ask Cursor to start Milestone 1
+6. Go Setup your Firebase Project (stage version, then prod)
+   a. Hosting, Functions, Firestore, Authentication
+   b. When you setup Hosting, you’ll get a JS file with a JSON object that has a bunch of config
+7. Give Gemini your JSON config, and ask it for a properly formatted .env.stage (including the VITE prefixes). Put this file in /apps/web (confirm all .env files are gitignored so they never get into git).
+8. Tell Cursor you’ve set this up, and it can continue with Milestone 1
+9. Try deploying to stage, test locally first if you want
+10. Complete Milestone 1
+11. Setup Prod, deploy to Prod
+    Process per Milestone
+12. Update documentation (TDD, todo, readme)
+13. Clean up console logs
+14. Check test coverage and run tests
+15. Code organization check
+16. Security check

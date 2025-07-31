@@ -1,0 +1,920 @@
+[
+  {
+    "text": "commission of a crime; “Authority” means the Zambia Information and Communications Technology Authority established under Act No. 15 of the Information and Communication Technologies Act, 2009 2009; Act No. 7 of “bank” has the meaning assigned to the word in the Banking 2017 and Financial Services Act, 2017; “call-related information” means data or details that are associated with a telephone call or communication session and includes— (a) switching, dialling or signalling information that identifies the origin, destination, termination, duration and equipment of each communication generated or received by a customer or user of any equipment; (b) a facility or service provided by a service provider; or (c) where applicable, the location of the user within the telecommunications system; “Centre” means the Central Monitoring and Co-ordination Centre continued under section 21; “certificate of registration” means a certificate of registration issued under section 24;",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 6,
+      "page_end": 6,
+      "title": null,
+      "chunk_size": 978,
+      "element_count": 25,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "for critical information or critical information infrastructure that is registered under this Act; “critical information” means computer data that relates to public safety, public health, economic stability, national security, international stability and the sustainability and restoration of critical cyberspace including— (a) personal data that is managed, stored or transmitted through critical information infrastructure or processed by a controller; (b) information relating to any research and development in relation to critical information infrastructure; (c) information needed to operate critical information infrastructure; or (d) information relating to risk management and business continuity in relation to critical information infrastructure; “critical information infrastructure” means a computer system, device, network, computer program or computer data that— (a) is vital to a country such that the incapacity or destruction of, or interference with, the computer",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 7,
+      "page_end": 7,
+      "title": null,
+      "chunk_size": 982,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "system, device, network, computer program or computer data would have a debilitating impact on national security, economy, public health or safety; or (b) supports the processing of critical information or an essential service; 66 No. 3 of 2025] Cyber Security “cyber attack” means malicious activities targeting the confidentiality, integrity or availability of computer systems, computer data or services rendered by computer systems; “cyber audit” means a third party audit of an organisation’s cyber security practices, involving the assessment of that organsation’s information security management system, penetration testing and vulnerability assessments for purposes of identifying and mitigating cyber security risks; “Cyber resilience” means the ability to prepare for, respond to and recover from cyber attacks, ensuring that essential functions continue despite adverse conditions; “cyber security” means tools, policies, security concepts, security safeguards, guidelines, risk management",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 7,
+      "page_end": 8,
+      "title": null,
+      "chunk_size": 1000,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "approaches, actions, training, best practices, assurances and technologies used to protect the cyber environment, organisation and user assets; “cyber security incident” means an unauthorised activity or event which may result in jeopardising or adversely impacting the confidentiality, availability or integrity of information, a computer, a computer system or a network; “Cyber Security Risk Register” means the Cyber Security Risk Register kept and maintained under section 20; “cyber security service” means a service listed under",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 8,
+      "page_end": 8,
+      "title": null,
+      "chunk_size": 534,
+      "element_count": 11,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "“law enforcement officer” means— (a) a police officer; (b) an officer of the Anti Corruption Commission; (c) an officer of the Drug Enforcement Commission; (d) an officer of the Zambia Security Intelligence Service; (e) an officer of the National Anti-Terrorism Centre; and (f) any other person that the President may, by statutory instrument, designate for purposes of this Act; “legally disqualified” means the absence of legal capacity as provided under section 4 of the Mental Health Act, Act No. 6 of 2019 2019; “licence” means a licence issued under section 45; “licensee” means a person licensed under this Act; “monitor” means to observe and analyse digital activities including network traffic, system logs, or user behaviour, with the goal of detecting and preventing cyber security threats or cyber security incidences; “orally” means communication or transmission of information through spoken words whether delivered in person, via real time conversation through recorded",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 11,
+      "page_end": 11,
+      "title": null,
+      "chunk_size": 984,
+      "element_count": 24,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "media or text based formats that capture the essence of communication; 70 No. 3 of 2025] Cyber Security “penetration testing” means assessing, testing or evaluating the cyber security of a computer or computer system and the integrity of any information stored in or processed by the computer or computer system, by searching for vulnerabilities in, and compromising, the cyber security defences of the computer or computer system with express permission of the system owner; “personal data” has the meaning assigned to the words in Act No. 3 of the Data Protection Act, 2021; 2021 “private communication” means an electronic communication which is reasonable for the sender or the intended recipient to expect that the communication shall not be intercepted; “repealed Act” means the Cyber Security and Cyber Crimes Act No. 2 of Act, 2021 repealed under section 74; 2021 “service provider” means an entity authorised to— (a) provide or offer an electronic communications system;",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 11,
+      "page_end": 12,
+      "title": null,
+      "chunk_size": 979,
+      "element_count": 23,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(b) process or store computer data on behalf of an electronic communications service provider or user of such service; or (c) own an electronic communications system to provide or offer an electronic communications service; “Staff Board” means the Staff Board Constituted in the Schedule; “Zambia Cyber Incident Response Team” means the Zambia Cyber Incidence Response Team constituted under section 6; and Act No. 14 of “Zambia Security Intelligence Service” means the Zambia 1998 Security Intelligence Service continued under the Zambia Security Intelligence Service Act, 1998. Cyber Security [No. 3 of 2025 71 PART II THE ZAMBIA CYBER SECURITY AGENCY 3. (1) There is established the Zambia Cyber Security Establishment Agency in the Office of the President which is responsible for of Zambia Cyber Security the administration of this Act under the general direction of the Agency President. (2) The Agency shall be responsible for the coordination of cyber security matters in the Republic.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 12,
+      "page_end": 13,
+      "title": "(2) The Agency shall be responsible for the coordination of",
+      "chunk_size": 993,
+      "element_count": 25,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(3) The Agency shall collaborate with relevant institutions which are constitutionally mandated to defend the Republic in cyber warfare and offensive cyber operations to uphold the sovereignty of the Republic. 4. The functions of the Agency are to— Functions of Agency (a) subject to the Zambia Security Intelligence Service Act, Act No. 14 of 1998 1998, coordinate activities relating to cyber security and cyber resilience; (b) take measures in response to cyber security incidents which may threaten critical information, critical information infrastructure or any information or infrastructure in the Republic likely to be affected by a cyber security incident; (c) disseminate information on cyber threats and vulnerabilities; (d) identify and ensure the protection of critical information and critical information infrastructure; (e) establish codes of practice and standards for cyber security and monitor compliance with the codes of practice and standards by controllers;",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 13,
+      "page_end": 13,
+      "title": "(3) The Agency shall collaborate with relevant institutions",
+      "chunk_size": 980,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "specify— (a) the composition of the sectoral cyber incident response team; and (b) the institution to coordinate the sectoral cyber incident response team. (3) The Agency shall, in requiring a sector to constitute a sectoral cyber incident response team, take into account— (a) the needs and criticality of a sector; (b) developments in respect of cyber security in the Republic; and (c) any other factors that the Agency may determine. (4) A sectoral cyber incident response team shall— (a) collect and collate cyber security incidents; and (b) co-ordinate responses to cyber security incidents within the sectors. (5) The Agency shall oversee the operations of a sectoral cyber incident response team constituted under this section. (6) A sectoral cyber incident response team shall bear the cost of establishing and operationalising that cyber incident response team. (7) A sectoral cyber incident response team shall submit a report on the operations of that sectoral cyber incident response",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 15,
+      "page_end": 15,
+      "title": "(3) The Agency shall, in requiring a sector to constitute a",
+      "chunk_size": 995,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "team to the Agency in a manner determined by the Agency. 74 No. 3 of 2025] Cyber Security PART IV PROTECTION OF CRITICAL INFORMATION AND CRITICAL INFORMATION INFRASTRUCTURE Critical sector 8. For the purposes of this Part, a critical sector includes— (a) defence and security; (b) public sector; (c) banking and finance; (d) health; (e) transport; (f) pensions and insurance; (g) information and communications technology; (h) energy; (i) education; (j) mining; and (k) any other sector as may be prescribed. Designation of 9. (1) The Agency shall, by notice in the Gazette, critical designate information or information infrastructure relevant to a information or critical critical sector as critical information or critical information information infrastructure infrastructure. (2) Where information or information infrastructure is designated as critical under subsection (1), a controller shall comply with the baseline security requirements as may be prescribed.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 15,
+      "page_end": 16,
+      "title": "(2) Where information or information infrastructure is",
+      "chunk_size": 968,
+      "element_count": 28,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "Categories of 10. (1) There shall be categories of critical information critical and critical information infrastructure that the Agency may information and critical determine. information infrastructure (2) The Agency shall, when categorising critical information or critical information infrastructure under subsection (1), consider the following: (a) the scale of distribution of the impact of any disruption on the critical information or critical information infrastructure; Cyber Security [No. 3 of 2025 75 (b) time criticality in relation to recovery time objective and recovery point objective in connection with any disruption on the critical information or critical information infrastructure; (c) the cyber dependence of the critical information or critical information infrastructure; and (d) any other factors that the Agency may consider necessary. (3) The Agency shall issue guidelines setting out the requirements applicable to the different categories of critical",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 16,
+      "page_end": 17,
+      "title": "(2) The Agency shall, when categorising critical information",
+      "chunk_size": 980,
+      "element_count": 24,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "information and critical information infrastructure. 11. (1) A controller shall register critical information or Registration of critical critical information infrastructure with the Agency, within thirty information and days of the designation under section 9, in a prescribed manner critical information and form. infrastructure (2) A controller who contravenes subsection (1) commits an offence and is liable, on conviction, to a fine not exceeding five hundred thousand penalty units or to imprisonment for a term not exceeding five years, or to both. 12. (1) A controller shall host critical information or critical Hosting of critical information infrastructure within the Republic, in a prescribed information and manner and form. critical information infrastructure (2) Despite subsection (1), the Agency may authorise a controller to host critical information or critical information infrastructure outside the Republic. (3) The Agency shall, before authorising the hosting of",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 17,
+      "page_end": 17,
+      "title": "(2) A controller who contravenes subsection (1) commits",
+      "chunk_size": 985,
+      "element_count": 24,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "critical information or critical information infrastructure outside the Republic under subsection (2), consider the following factors: (a) the categories of critical information or critical information infrastructure referred to under section 10; (b) the justification of hosting the critical information or critical information infrastructure outside the Republic; (c) the nature of business operations; (d) the need to maintain national cyber resilience; 76 No. 3 of 2025] Cyber Security (e) whether the proposed hosting country has a legal framework on cyber security that would facilitate the regulation of the critical information or critical information infrastructure; (f) whether the critical information or critical information infrastructure belongs to a public body; (g) national security; (h) the categories of personal data required to be stored Act No. 3 of within the Republic under the Data Protection Act, 2021 2021; and (i) any other factors as may be prescribed.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 17,
+      "page_end": 18,
+      "title": null,
+      "chunk_size": 981,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "critical technology auditor to perform a cyber audit on critical information information or critical or critical information infrastructure in a manner determined by information the Agency. infrastructure (2) Despite subsection (1), the Agency may, by notice, require a controller to perform a cyber audit on critical information or critical information infrastructure within a period specified in the notice. (3) The fees for the cyber audit shall be paid by the controller. (4) A controller shall submit to the Agency, a report of the cyber audit conducted under subsection (2), within a period as the Agency may determine. Cyber Security [No. 3 of 2025 77 (5) A controller who contravenes this section commits an offence and is liable, on conviction, to a fine not exceeding three million penalty units. 15. (1) The Agency shall, notify the controller in writing, Non-compliance where a cyber audit does not comply with the guidelines issued to cyber audit requirements",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 18,
+      "page_end": 19,
+      "title": "(2) Despite subsection (1), the Agency may, by notice,",
+      "chunk_size": 972,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(a) a cyber security incident in respect of critical information information and or critical information infrastructure; critical information (b) a cyber security incident in respect of any computer or infrastructure computer system under the controller’s control that is interconnected or communicates with critical information or critical information infrastructure; or (c) any other type of cyber security incident in respect of critical information or critical information infrastructure that the Agency may specify to the controller. (2) Despite subsection (1), a controller shall submit a preliminary cyber incident report to the Agency within twelve hours of notifying the Agency of the perceived or actual occurrence of the incident under that subsection, in a prescribed manner and form. (3) A controller shall, as soon as the cyber security incident is resolved, submit to the Agency a detailed cyber security incident report. 78 No. 3 of 2025] Cyber Security",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 19,
+      "page_end": 20,
+      "title": "(2) Despite subsection (1), a controller shall submit a",
+      "chunk_size": 969,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(4) Despite subsection (3), a controller shall submit to the Agency a cyber security incident status report, at intervals, that the Agency may determine. (5) A controller shall establish mechanisms and processes, in accordance with information security standards published by the Agency in the Gazette, for the detection of a cyber security threat in respect of critical information or critical information infrastructure. (6) A controller who contravenes this section commits an offence and is liable, on conviction, to a fine not exceeding five hundred thousand penalty units or to imprisonment for a term not exceeding five years, or to both. Power to 18. (1) The Agency shall, where the Agency receives investigate information regarding an alleged cyber security threat or cyber cyber security incident and security incident which satisfies the severity threshold in cyber security subsection (2), investigate that cyber security threat or cyber threat security incident, for the purposes of —",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 20,
+      "page_end": 20,
+      "title": "(4) Despite subsection (3), a controller shall submit to the",
+      "chunk_size": 997,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "considers to be relevant to the investigation; (d) copy or take extracts from any physical or electronic record or document in the possession of the controller; Cyber Security [No. 3 of 2025 79 (e) request for information from a person who appears to be acquainted with the facts and circumstances relating to the alleged cyber security threat or incident; (f) direct, by written notice, a controller to carry out remedial measures, or to cease carrying on activities, as may be specified in the notice in order to minimise the cyber security threat or incident on a computer or computer system; or (g) require the owner of a computer or computer system to take any action to assist with the investigation. (4) An inspector may, with a warrant, where the inspector reasonably believes that there is a perceived or actual cyber security threat or incident, enter premises where a computer or computer system affected or was affected by the cyber security threat or incident is located, to —",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 20,
+      "page_end": 21,
+      "title": "(4) An inspector may, with a warrant, where the inspector",
+      "chunk_size": 989,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(a) examine the operation of the computer or computer system; (b) take a copy of, or extracts from, any electronic record or computer programme contained in a computer or computer system; or (c) take possession of a computer or other equipment for the purpose of conducting digital forensics. (5) The Agency shall, immediately after the completion of an examination or analysis on a computer or other equipment taken into possession by an inspector in exercise of the powers under subsection (4), return the computer or other equipment to the owner. (6) A person commits an offence where that person willfully gives false information or without lawful excuse refuses to give information or produce a record, document or copy thereof required of that person by an inspector under this section. (7) A person convicted of an offence under subsection (6) is liable, to a fine not exceeding one hundred thousand penalty units or to imprisonment for a term not exceeding one year, or to both.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 21,
+      "page_end": 21,
+      "title": "(5) The Agency shall, immediately after the completion of",
+      "chunk_size": 986,
+      "element_count": 20,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(d) any other information that the Agency may determine. PART V INTERCEPTION OF COMMUNICATIONS Central 21. (1) The Central Monitoring and Coordination Centre Monitoring and established under the repealed Act is continued as if established Coordination Centre under this Act. (2) Subject to the provisions of this Act, the Centre shall be the sole facility through which — (a) lawful interceptions shall be effected; and (b) intercepted communication and call related information of an interception target shall be forwarded. (3) The Centre shall be managed, controlled and operated by the division responsible for Government communications. Prohibition of 22. (1) A person shall not knowingly and without lawful interception of authority— communication (a) intercept, attempt to intercept or procure another person to intercept or attempt to intercept any communication; or (b) use, attempt to use or procure another person to use or attempt to use any electronic, software, mechanical",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 22,
+      "page_end": 22,
+      "title": "(2) Subject to the provisions of this Act, the Centre shall be",
+      "chunk_size": 985,
+      "element_count": 23,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(a) for the operation, maintenance and testing of an electronic communications service; (b) to protect the rights or property of the electronic communications service provider or the users of the electronic communications service from abuse of that service or any other unlawful use of the service; (c) to record that a communication was initiated or completed in order to protect — (i) an electronic communications service provider in the completion of a communication; or (ii) a user of an electronic communications service from fraudulent, unlawful or abusive use of that electronic communications service; (d) pursuant to an interception of communication order; or (e) for research purposes where consent of a user of the electronic communications service has been obtained. (4) Despite subsection (3), an institution or person referred to under that subsection shall keep a record of the interception conducted by that institution or person using an interception",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 23,
+      "page_end": 23,
+      "title": "(4) Despite subsection (3), an institution or person referred",
+      "chunk_size": 967,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "device registered under section 24 and submit a copy of the record to the Centre. (5) A person who contravenes subsection (4) commits an offence and is liable, on conviction, to a fine not exceeding two hundred thousand penalty units or to imprisonment for a term not exceeding two years, or to both. (6) In this section, unless the context otherwise requires, “interception device” means a device designed or modified to intercept cellular communications, manipulate cellular network protocols, intercept satellite communications, intercept radio communications or capture mobile device identifiers. 82 No. 3 of 2025] Cyber Security Registration of 24. (1) A person authorised to use or possess an interception interception device under section 23 shall apply to the Centre device for the registration of the interception device in a prescribed manner and form on payment of a prescribed fee. (2) The Centre shall, within fourteen days of receipt of the",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 23,
+      "page_end": 24,
+      "title": "(5) A person who contravenes subsection (4) commits an",
+      "chunk_size": 954,
+      "element_count": 17,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "application under subsection (1), grant or reject the application. (3) The Centre shall, where the Centre — (a) grants the application under subsection (2), issue the applicant with a certificate of registration in a prescribed manner and form on terms and conditions that the Centre may determine; or (b) rejects the application under subsection (2), inform the applicant in writing, stating the reasons for the rejection. (4) A certificate of registration granted under subsection (3) shall be valid for a period as prescribed. (5) A person who intends to renew a certificate of registration may, not less than three months before the expiry of the certificate of registration, apply to the Centre for renewal of the certificate of registration in the prescribed manner and form on payment of the prescribed fee. Variation of 25. A holder of a certificate of registration may, at any time certificate of during the validity of the certificate of registration, apply to the registration",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 24,
+      "page_end": 24,
+      "title": "(3) The Centre shall, where the Centre —",
+      "chunk_size": 987,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "Centre for a variation of the certificate of registration, in a prescribed manner and form, on payment of a prescribed fee. Surrender of 26. (1) The holder of a certificate of registration shall, certificate of where the holder of a certificate of registration does not intend registration to continue using or possessing an interception device for the purpose to which the certificate of registration relates, surrender the certificate of registration to the Centre. (2) Where a certificate of registration has been surrendered under subsection (1), the holder of a certificate of registration shall surrender the interception device to the Centre. (3) The Centre shall determine the manner in which an interception device surrendered under subsection (2) shall be disposed of. Transfer of 27. A certificate of registration issued under this Part shall certificate of not be transferred to a third party. registration Cancellation or 28. (1) The Centre shall suspend or cancel a certificate",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 24,
+      "page_end": 24,
+      "title": "(2) Where a certificate of registration has been surrendered",
+      "chunk_size": 991,
+      "element_count": 18,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "suspension of of registration if a holder of the certificate of registration — certificate of registration (a) obtained the certificate of registration through fraud, misrepresentation or concealment of a material fact; or Cyber Security [No. 3 of 2025 83 (b) contravenes any provision of this Act or terms and conditions of the certificate of registration. (2) The Centre shall, before suspending or cancelling the certificate of registration in accordance with subsection (1), notify the holder of the certificate of registration of the Centre’s intention to suspend or cancel the certificate of registration and shall — (a) give reasons for the intended suspension or cancellation; and (b) require the holder of a certificate of registration to show cause, within a period of not more than thirty days, why the certificate of registration should not be suspended or cancelled. (3) The Centre shall, in making the Centre’s final determination on the suspension or cancellation of a certifcate",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 24,
+      "page_end": 25,
+      "title": "(2) The Centre shall, before suspending or cancelling the",
+      "chunk_size": 994,
+      "element_count": 20,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "shall, where the law enforcement officer has reasonable grounds interception to believe that an offence has been committed, is likely to be committed, or is being committed, apply ex-parte to a judge for an interception of communication order. (2) A judge to whom an application is made under subsection (1) may issue an interception of communication order— (a) requiring an electronic communications service provider to intercept and retain specified communication or communications of a specified description received or transmitted, or about to be received or transmitted by that electronic communications service provider; 84 No. 3 of 2025] Cyber Security (b) authorising the law enforcement officer, through the Centre, to enter specified premises and to install on such premises any device for the interception and retention of communication or communications of a specified description and to remove and retain such device; (c) requiring any person to furnish the law enforcement",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 25,
+      "page_end": 26,
+      "title": "(2) A judge to whom an application is made under subsection",
+      "chunk_size": 986,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "officer with information, facilities and assistance as the judge considers necessary for the purpose of the installation of the interception device; or (d) imposing terms and conditions for the protection of interests of persons specified in the interception of communication order or any third parties or to facilitate investigations. (3) A judge may grant an order under subsection (2), where the judge is satisfied that there are reasonable grounds to believe that the communication relates to the — (a) commission of an offence under this Act or any other written law; or (b) whereabouts of a person suspected by a law enforcement officer to have committed an offence is contained in that communication. (4) An order referred to under subsection (2), shall be valid for a period of three months and may, on application by a law enforcement officer, be renewed for a further period not exceeding three months. (5) A law enforcement officer shall on receipt of an order",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 26,
+      "page_end": 26,
+      "title": "(3) A judge may grant an order under subsection (2), where",
+      "chunk_size": 971,
+      "element_count": 20,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "under subsection (2), serve the order on an electronic communications service provider. (6) An electronic communications service provider shall, within twenty four hours of receipt of an order issued under subsection (2), route duplicate signals of an indirect communication to the Centre. (7) The Centre shall make available to a law enforcement officer the duplicate signals of an indirect communication routed to the Centre under subsection (6). Cyber Security [No. 3 of 2025 85 (8) Information shall be admissible in proceedings for an offence under this Act, as evidence of the truth where that information is contained in a communication that is intercepted and retained — (a) pursuant to an interception of communication order under subsection (2); or (b) in a foreign State in accordance with the law of that foreign State and certified by a judge of that foreign State to have been so intercepted and retained. (9) An action shall not lie in any court against an electronic",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 26,
+      "page_end": 27,
+      "title": "(6) An electronic communications service provider shall,",
+      "chunk_size": 982,
+      "element_count": 20,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "communications service provider, any officer, employee or agent of the electronic communications service provider, for providing information, facilities or assistance in accordance with the terms of an interception of communication order under subsection (2). 30. (1) A law enforcement officer may orally request an Interception of electronic communications service provider to intercept any communication to prevent communication and to route the duplicate signals of the indirect bodily harm, communication specified in that request to the Centre where the loss of life or damage to law enforcement officer has reasonable grounds to believe that— property (a) a person who is party to any communication — (i) has caused, or may cause, the infliction of bodily harm to another person; (ii) threatens, or has threatened, to cause the infliction of bodily harm to another person; (iii) threatens, or has threatened, to kill oneself or another person, or to perform an act which",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 27,
+      "page_end": 27,
+      "title": null,
+      "chunk_size": 976,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "may endanger that person’s own life or that of another person; (iv) has caused or may cause damage to property; or (v) has caused or may cause financial loss to banks, financial institutions, account holders or beneficiaries of funds being remitted or received by such account holders or beneficiaries; (b) it is not reasonably practical to make an application under section 29 for an interception of communication order as the delay to intercept a specified communication would result in the infliction of bodily harm, the death of another person or damage to property; or 86 No. 3 of 2025] Cyber Security (c) the sole purpose of the interception is to prevent bodily harm to, or loss of life of, any person or damage to property. (2) An electronic communications service provider shall, on receipt of a request made under subsection (1) by a law enforcement officer, route the duplicate signals of the indirect communication to the Centre. (3) A law enforcement officer who makes a request to an",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 27,
+      "page_end": 28,
+      "title": "(2) An electronic communications service provider shall, on",
+      "chunk_size": 997,
+      "element_count": 24,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "electronic communications service provider under subsection (1) shall, within twenty-four hours after making that request, furnish the electronic communications service provider with a written confirmation of the request setting out the information given by that law enforcement officer. (4) A law enforcement officer who makes a request for interception under subsection (1), shall within two days, after the interception of the communication, submit to a judge — (a) a copy of the written confirmation referred to in subsection (3); (b) an affidavit setting out the results and information obtained from that interception; (c) a recording of the communication that has been obtained through that interception; and (d) a full or partial transcript of the recording of the communication and any notes made by the law enforcement officer. (5) An electronic communications service provider who, in accordance with subsection (2), routes duplicate signals of indirect",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 28,
+      "page_end": 28,
+      "title": "(4) A law enforcement officer who makes a request for",
+      "chunk_size": 964,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "information (a) acquire or attempt to acquire, geolocation information relating to another person; or (b) disclose, or attempt to disclose or intercept communication or geolocation information relating to another person. (2) A person who contravenes subsection (1), commits an offence and is liable, on conviction, to a fine not exceeding five hundred thousand penalty units or to imprisonment for a term not exceeding five years, or to both. (3) In this section, unless the context otherwise requires, “consent” has the meaning assigned to the word in the Data Act No. 3 of Protection Act, 2021. 2021 32. (1) Where a person is a party to a communication Interception of and that person, as a result of information received from the communication for purposes of other party to the communication, has reasonable grounds to determining believe that an emergency exists and the location of that other location party is unknown, that person shall, if that person is —",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 29,
+      "page_end": 29,
+      "title": "(2) A person who contravenes subsection (1), commits an",
+      "chunk_size": 964,
+      "element_count": 20,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(d) property is likely to be damaged, is being damaged or has been damaged. 88 No. 3 of 2025] Cyber Security Technical 33. (1) The Centre may, on request by a law enforcement assistance for officer, with a warrant, assist the law enforcement officer for purposes of purposes of determining a location or the location of a prohibited determining location or device as prescribed. illegal use of spectrum (2) The Authority may intercept communication for purposes of determining the location of illegal use of the spectrum or numbering resources. Prohibition of 34. (1) An electronic communications service provider access and use who intercepts a communication pursuant to an interception of of intercepted communication communication order shall not use the communication in any manner other than in accordance with the provisions of this Act. (2) A person commits an offence if that person without authorisation — (a) accesses the contents of any intercepted communication; or",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 29,
+      "page_end": 30,
+      "title": "(2) A person commits an offence if that person without",
+      "chunk_size": 977,
+      "element_count": 23,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(b) uses, or attempts to use, the contents of any intercepted communication. (3) A person who contravenes subsection (2), commits an offence and is liable, on conviction, to a fine not exceeding one million penalty units or to imprisonment for a term not exceeding ten years, or to both. Disclosure of 35. (1) A law enforcement officer who obtains intercepted information pursuant to an interception of communication order communication by law may disclose the communication to another law enforcement enforcement officer where the disclosure is necessary for the determination officer of the commission of an offence or the whereabouts of a person suspected to have committed an offence. (2) Where a law enforcement officer, in the performance of any functions under this Act, obtains information pursuant to an interception of communications order relating to the commission of an offence under any other law, the law enforcement officer shall disclose or use the communication in",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 30,
+      "page_end": 30,
+      "title": "(3) A person who contravenes subsection (2), commits an",
+      "chunk_size": 982,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "accordance with the provisions of this Act or that other law. Privileged 36. A privileged communication intercepted in accordance communication with the provisions of this Act shall not lose its privileged to retain privileged character. character Prohibition of 37. (1) A person shall not use an electronic random communications service, critical information or critical information monitoring infrastructure to randomly monitor a communication, except for mechanical or service quality control checks. Cyber Security [No. 3 of 2025 89 (2) A person who contravenes subsection (1), commits an offence and is liable, on conviction, to a fine not exceeding one million penalty units, or to imprisonment for a term not exceeding ten years, or to both. (3) In this section, unless the context otherwise requires — “monitor” includes listening to, viewing, reading or recording communication by means of a monitoring device; and “monitoring device” means any electronic, software,",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 30,
+      "page_end": 31,
+      "title": "(2) A person who contravenes subsection (1), commits an",
+      "chunk_size": 975,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "communications service provider shall be borne by the electronic communications service provider for the purpose of — (a) enabling — (i) an electronic communication to be intercepted; and (ii) call-related information to be stored; or (b) complying with this Part. PART VI LICENSING OF CYBER SECURITY SERVICE PROVIDERS 41. For the purposes of this Act, the following are cyber Cyber security services security services: (a) penetration testing; (b) security operations centre; (c) information security risk assessment; (d) vulnerability assessment; (e) incident response; (f) cyber audit; (g) red teaming; or (h) any other services as may be prescribed. 42. (1) A person shall not provide a cyber security service Prohibition of without a licence issued under this Act. providing cyber security service without licence (2) A controller shall not engage a person who is not licensed under this Act. 92 No. 3 of 2025] Cyber Security (3) A person who contravenes subsection (1) or",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 33,
+      "page_end": 34,
+      "title": "(2) A controller shall not engage a person who is not licensed",
+      "chunk_size": 977,
+      "element_count": 28,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(2) commits an offence and is liable, on conviction, to a fine not exceeding five hundred thousand penalty units or to imprisonment for a term not exceeding five years, or to both. Categories of 43. There shall be categories of licences as may be licences prescribed for purposes of providing cyber security services specified under section 41. Application for 44. (1) A person who intends to provide a cyber security licence service shall apply to the Agency for a licence in the prescribed manner and form on payment of a prescribed fee. (2) The Agency shall, within thirty days of receipt of an application under subsection (1), approve or reject the application. (3) Where the Agency fails to make a decision within the period referred to under subsection (2), the application shall be deemed to have been granted. (4) The Agency may request for further particulars or information in respect of an application under this section in the prescribed manner and form.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 34,
+      "page_end": 34,
+      "title": "(2) commits an offence and is liable, on conviction, to a fine",
+      "chunk_size": 967,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "Grant of licence 45. (1) The Agency shall, where the Agency approves an application under section 44, issue the applicant with a licence in a prescribed manner and form. (2) A licence issued under this section may be issued on terms and conditions that the Agency may determine. Rejection of 46. (1) The Agency shall reject an application for a licence application as a cyber security service provider if — (a) an applicant or an officer of an applicant is not a fit and proper person; (b) it is not in the public interest to grant the application; (c) the grant of the licence may pose a threat to national security; or (d) the applicant has not met the criteria for licensing as prescribed. (2) The Agency shall, where the Agency rejects an application for a licence on the grounds set out in subsection (1), inform the applicant, in writing, stating the reasons for the rejection. Cyber Security [No. 3 of 2025 93 (3) For the purposes of subsection (1), an applicant or an",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 34,
+      "page_end": 35,
+      "title": "(2) A licence issued under this section may be issued on",
+      "chunk_size": 975,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "officer of the applicant is not a fit and proper person, if that applicant or officer— (a) is legally disqualified; (b) is an undischarged bankrupt; (c) has been convicted of an offence involving fraud or dishonesty; (d) has been convicted of an offence under this Act; or (e) does not meet any other criteria that may be determined by the Agency. (4) In this section, unless the context otherwise requires, “officer” means a director, a partner of the applicant or any person who is responsible for conducting cyber security services. 47. A holder of a licence may, at any time during the validity Variation of of the licence, apply to the Agency for a variation of the licence licence in a prescribed manner and form on payment of a prescribed fee. 48. The holder of a licence shall, where the holder of a Surrender of licence licence does not intend to continue operating as a cyber security service provider to which the licence relates, surrender the licence to the Agency.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 35,
+      "page_end": 35,
+      "title": "(4) In this section, unless the context otherwise requires,",
+      "chunk_size": 978,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "satisfaction of the Agency within the period specified under subsection (2). (4) The Agency shall, in making the Agency’s final determination on the suspension or cancellation of a licence consider the submissions made by the holder of a licence under subsection (2). (5) The Agency may suspend or cancel a licence if the holder after being notified under subsection (2) fails to show cause or does not take any remedial measures, to the satisfaction of the Agency, within the time specified in that subsection. (6) The holder of a licence shall, where a licence is cancelled in accordance with subsection (5), surrender the licence to the Agency. Register of 52. The Agency shall keep and maintain a register of cyber cyber security security service providers in the prescribed manner and form. service providers Cyber Security [No. 3 of 2025 95 PART VII INTERNATIONAL COOPERATION IN MAINTAINING CYBER SECURITY 53. Subject to section 3(3), the Agency shall identify and Identifying areas of",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 36,
+      "page_end": 37,
+      "title": "(4) The Agency shall, in making the Agency’s final",
+      "chunk_size": 991,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(2) The Agency shall, issue an official identification document to an inspector, which shall be prima facie evidence of an inspector’s appointment. (3) An inspector shall, in performing any function under this part — (a) be in possession of the official identification document referred to in subsection (2); and (b) show the official identification document to a person who requests to see the official identification document. 96 No. 3 of 2025] Cyber Security Power to 56. (1) An inspector may, for the purposes of enforcing access, search the provisions of this Act, at any reasonable time, and with a and seize warrant — (a) enter the licensee or controller’s premises or access a computer or computer system in the private domain; (b) monitor a computer or computer system; (c) search any person on the licensee or controller’s premises, document or record that has a bearing on an investigation, except that a person shall be searched by a person of the same sex;",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 37,
+      "page_end": 38,
+      "title": "(2) The Agency shall, issue an official identification",
+      "chunk_size": 969,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(d) seize a computer or computer system that has a bearing on an investigation; (e) take extracts from, or make copies of a book, document or record that is on or in the licensee or controller’s premises or in the computer or computer system that has a bearing on an investigation; (f) access and inspect the operation of any computer, computer system or equipment forming part of an information system and any associated apparatus or material which the inspector has reasonable cause to believe is, or has been used in, connection with any offence; and (g) use or cause to be used any computer or computer system or part thereof to search any data contained in or available to such a computer or computer system. (2) An inspector who removes anything from any premises shall — (a) issue a receipt for anything removed to the owner or the person in control of the premises; and (b) return anything removed as soon as practicable after the thing has served the purpose for which it was removed.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 38,
+      "page_end": 38,
+      "title": "(2) An inspector who removes anything from any premises",
+      "chunk_size": 993,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "as the inspector may require for the purpose of performing the inspector’s functions; (c) impersonates an inspector or presents oneself to be an inspector; or (d) willfully gives an inspector false or misleading information in answer to an inquiry made by the inspector. (5) A person convicted of an offence under subsection (4) is liable, to a fine not exceeding two hundred thousand penalty units or to imprisonment for a term not exceeding two years, or to both. 57. (1) The Agency may appoint a person as a cyber Appointment of security technical expert for a specified period, to assist an cyber security technical expert inspector in the inspector’s exercise of any powers under this Act. (2) The Agency shall issue an official identification document to the cyber security technical expert which shall be prima facie evidence of a cyber security technical expert’s appointment. (3) A cyber security technical expert shall, in performing any function under this part —",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 39,
+      "page_end": 39,
+      "title": "(5) A person convicted of an offence under subsection (4)",
+      "chunk_size": 974,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "(a) be in possession of the official identification document referred to in subsection (2); and (b) show the official identification document to a person who requests to see the official identification document. (4) The Agency shall determine the terms and conditions of the appointment of the cyber security technical expert. 98 No. 3 of 2025] Cyber Security PART IX GENERAL PROVISIONS Appeals 58. A person aggrieved by a decision of the Agency may, within thirty days of the decision, appeal to the High Court. Search and 59. (1) A law enforcement officer may, with a warrant, seizure by law enter any premises to search and seize a computer or computer enforcement system, where a computer or computer system contains officer material— (a) or evidence necessary in proving an offence; or (b) that has been acquired by a person as a result of an offence. (2) A law enforcement officer who is undertaking a search under this Act may, where the law enforcement officer has",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 39,
+      "page_end": 40,
+      "title": "(4) The Agency shall determine the terms and conditions of",
+      "chunk_size": 972,
+      "element_count": 23,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "2010 2010, the court shall make an order of forfeiture under subsection (1) if — (a) the law enforcement officer has given notice, by publication in the Gazette and in a daily newspaper of general circulation in the Republic, to the effect that the computer or computer system which has been seized under this Act shall vest in the State if it is not claimed within three months from the date of publication of the notice; and Cyber Security [No. 3 of 2025 99 (b) three months after the giving of the notice under paragraph (a), the computer or computer system remains unclaimed. (3) Where a claim is made, in writing, by a person that is lawfully entitled to the computer or computer system seized under this Part, the law enforcement officer may order the release of the computer or computer system to the claimant if satisfied that there is no dispute concerning the ownership of the computer or computer system and that it is not liable to forfeiture.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 40,
+      "page_end": 41,
+      "title": "(1) if —",
+      "chunk_size": 955,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "61. A person, who is not a suspect of a crime or otherwise Assistance excluded from an obligation to provide assistance, but who has knowledge about the functioning of a computer or computer system or measures applied to protect the computer data that is the subject of a search under this Act may, permit and assist where reasonably required and requested by a person authorised to make the search by — (a) providing information that enables the undertaking of necessary measures in the circumstances; (b) accessing and using a computer system or computer data storage medium to search any computer data available to or in the computer system; (c) obtaining and copying such computer data; or (d) obtaining an intelligible output from a computer system in a format that is admissible for the purpose of legal proceedings. 62. Despite any other law, evidence which is obtained by Evidence obtained by means of an interception effected in contravention of this Act, unlawful",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 41,
+      "page_end": 41,
+      "title": null,
+      "chunk_size": 973,
+      "element_count": 20,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "shall not be admissible in any criminal proceedings except with interception not the leave of the court, and in granting or refusing such leave, the admissible in criminal court shall have regard to the circumstances in which the proceedings evidence was obtained, the potential effect of its admission or exclusion on issues of national security and the unfairness to the accused person that may be occasioned by its admission or exclusion. 63. (1) A person who obstructs or hinders a law Prohibition of enforcement officer, in the exercise of any powers under this obstruction of law enforcement Act or neglects or fails to comply with a lawful order of a law officer enforcement officer commits an offence and is liable, on conviction, to a fine not exceeding two hundred thousand penalty units or to imprisonment for a term not exceeding two years, or to both. 100 No. 3 of 2025] Cyber Security Submission of 64. (1) A controller shall, annually submit to the Agency",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 41,
+      "page_end": 42,
+      "title": null,
+      "chunk_size": 970,
+      "element_count": 18,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "information by in writing, such information as the Agency may determine. controller (2) A controller who contravenes subsection (1) commits an offence and is liable, on conviction, to a fine not exceeding one hundred thousand penalty units or to imprisonment for a term not exceeding one year, or to both. General penalty 65. A person who commits an offence under this Act for which no penalty is provided for is liable, on conviction, in the case of — (a) an individual, to a penalty not exceeding five hundred thousand penalty units or to imprisonment for a period not exceeding five years, or to both; or (b) a body corporate or unincorporate body, to a penalty not exceeding one million penalty units. Power of court 66. (1) A court may, on conviction of a person of an to order offence under this Act order — cancellation of licence, (a) forfeiture of — forfeiture etc., (i) property constituting proceeds of such offence; or (ii) device or property used or intended to be used",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 42,
+      "page_end": 42,
+      "title": "(2) A controller who contravenes subsection (1) commits",
+      "chunk_size": 982,
+      "element_count": 22,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "to commit or facilitate the commission of the offence; or (b) the cancellation of a licence issued under this Act. Act No. 19 of (2) The Forfeiture of Proceeds of Crimes Act, 2010, applies 2010 in relation to an order of forfeiture made by the court under subsection (1). Guidelines 67. (1) The Agency may issue guidelines as are necessary for the better carrying out of the provisions of this Act. (2) The Agency shall publish the guidelines on the Agency’s website, in a daily newspaper of general circulation in the Republic, the Gazette or any other electronic platform. (3) The guidelines issued by the Agency under this Act shall bind all persons regulated under this Act and may include guidelines relating to — (a) cyber incident reporting; (b) cyber security; (c) cyber resilience; Cyber Security [No. 3 of 2025 101 (d) critical information infrastructure risk assessments; (e) critical information infrastructure data retention; and (f) cyber incident management exercises.",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 42,
+      "page_end": 43,
+      "title": "(2) The Agency shall publish the guidelines on the Agency’s",
+      "chunk_size": 983,
+      "element_count": 21,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "68. The Agency may develop standards for the regulation Standards of cyber security in the Republic. 69. (1) The Agency may, by notice in the Gazette or daily Exemptions newspaper of general circulation in the Republic, exempt a person or class of persons, for a limited or unlimited period of time, from the requirement to comply with the provisions of Part IV and Part VI. (2) The Agency may, where the Agency issues a notice under subsection (1), revoke its decision where it considers necessary to do so. (3) The Agency may where the Agency revokes its decision under subsection (2), publish the decision by notice in the Gazette or a daily newspaper of general circulation in the Republic. 70. Subject to the written consent of the Director of Public Compounding Prosecutions and where the Agency is satisfied after an of certain offences by investigation, and a person admits that the person has committed Agency an offence under this Act, the Agency may compound the offence",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 43,
+      "page_end": 43,
+      "title": "(2) The Agency may, where the Agency issues a notice",
+      "chunk_size": 981,
+      "element_count": 18,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "by collecting from that person a sum of money that the Agency considers appropriate, but not exceeding fifty percent of the maximum amount of the fine to which that person would have been liable on conviction, and a person having made that payment shall not thereafter be prosecuted in relation to the offence so compounded. 71. (1) The Agency may impose an administrative penalty Administrative on a person for failure to comply with a provision of this Act penalty which is not an offence. (2) An administrative penalty shall not exceed the amount prescribed by the President by statutory instrument for each day during which the failure continues. (3) An administrative penalty shall be paid to the Agency within the period prescribed by the President. (4) The Agency may, where a person fails to pay an administrative penalty within the stipulated period under subsection (3), by way of civil action in a competent court, recover the amount of the administrative penalty from that person as an",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": null,
+      "page_start": 43,
+      "page_end": 43,
+      "title": "(2) An administrative penalty shall not exceed the amount",
+      "chunk_size": 997,
+      "element_count": 18,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  },
+  {
+    "text": "APPENDIX SCHEDULE (Section 2) STAFF BOARD 1. The President shall constitute the Staff Board which shall Staff Board consist of part-time members who shall advise the Director- General on the selection, appointment, termination of appointment, promotion and discipline of officers below the rank of Deputy- Director. 2. Subject to any specific or general direction of the President, the Staff Board may regulate its own procedure. 3. The President shall appoint a Chairperson of the Staff Board from amongst the members. 4. The Members of the Staff Board shall elect the Vice- Chairperson from amongst themselves. 5. The President may, by statutory instrument, make regulations to provide for the composition, allowances and tenure of the Staff Board. 104",
+    "metadata": {
+      "source": "Act No. 3 of 2025, The Cyber Security_0.pdf",
+      "document_type": "Act of Parliament",
+      "part": null,
+      "section": "41",
+      "page_start": 45,
+      "page_end": 46,
+      "title": null,
+      "chunk_size": 754,
+      "element_count": 19,
+      "document_title": "THE CYBER SECURITY ACT, 2025",
+      "total_pages": 46,
+      "source_url": "https://www.parliament.gov.zm/acts",
+      "official_citation": "Cyber Security Act, No. 3 of 2025"
+    }
+  }
+]

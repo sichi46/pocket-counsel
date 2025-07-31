@@ -1,0 +1,17 @@
+Categorization: Group documents by type and potentially by core legal area (for better management and initial scoping).
+
+packages/corpus/
+├── acts/                                 # Official Acts of Parliament
+│   ├── The_Constitution_of_Zambia_Cap_1.pdf
+│   ├── The_Marriage_Act_Cap_50.pdf
+│   ├── The_Competition_and_Consumer_Protection_Act_2010.pdf
+│   └── ... (Your top 10 pieces of legislation)
+├── statutory_instruments/              # (If you get to this level of detail)
+│   └── SI_XYZ_Regulation.pdf
+├── legal_guides/                       # Simplified guides from NGOs
+│   ├── LRF_Basic_Rights_Guide_v2.pdf
+│   └── CCPC_Consumer_Rights_FAQs.pdf
+├── case_summaries/                     # (Optional, more advanced)
+│   └── High_Court_Ruling_2023_001.pdf
+└── legal_aid_contacts.json             # Structured data for contacts
+Source Identification: For each document, identify its original source URL (e.g., parliament.gov.zm) and its official name/citation. This is vital for your "Source Citations" feature.
