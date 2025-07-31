@@ -1,0 +1,88 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run every Sunday at 3 AM UTC
+    - cron: "0 3 * * 0"
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          # If you wish to specify custom queries, you can do so here or in a config file.
+          # By default, queries listed here will override any specified in a config file.
+          # Prefix the list here with "+" to use these queries and those in the config file.
+          # queries: security-extended,security-and-quality
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: "8"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: ../results.sarif
+
+  # Notify on security findings
+  notify-security:
+    name: Notify Security Findings
+    runs-on: ubuntu-latest
+    needs: analyze
+    if: always()
+    steps:
+      - name: Check for security alerts
+        id: check-alerts
+        run: |
+          # This would check for new security alerts
+          # Implementation depends on your notification preferences
+          echo "Security analysis completed"
+
+      - name: Notify Slack about security findings
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ needs.analyze.result }}
+          channel: "#security"
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          text: |
+            🔍 CodeQL Security Analysis Complete
+            📊 Results: ${{ needs.analyze.result }}
+            🔗 View details in GitHub Security tab

@@ -45,21 +45,24 @@ pocket-counsel/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd pocket-counsel
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    ```
-   
+
    Configure the following variables:
    - `GOOGLE_CLOUD_PROJECT`: Your Google Cloud project ID
    - `VERTEX_AI_LOCATION`: Vertex AI location (e.g., us-central1)
@@ -76,10 +79,12 @@ pocket-counsel/
 #### Development Mode
 
 1. **Start the web application**
+
    ```bash
    cd apps/web
    pnpm dev
    ```
+
    The app will be available at `http://localhost:3000`
 
 2. **Start Firebase Functions (in another terminal)**
@@ -103,6 +108,7 @@ firebase deploy
 ### Ingesting Legal Documents
 
 1. **Place PDF documents in the corpus directory**
+
    ```bash
    packages/corpus/
    ```
@@ -123,6 +129,7 @@ pnpm query "What are the requirements for starting a business in Zambia?"
 ## 🔧 Available Scripts
 
 ### Root Level
+
 - `pnpm build` - Build all packages
 - `pnpm dev` - Start development servers
 - `pnpm lint` - Run linting across all packages
@@ -130,35 +137,41 @@ pnpm query "What are the requirements for starting a business in Zambia?"
 - `pnpm clean` - Clean build artifacts
 
 ### Web App (`apps/web`)
+
 - `pnpm dev` - Start development server
 - `pnpm build` - Build for production
 - `pnpm preview` - Preview production build
 - `pnpm test` - Run tests
 
 ### Functions (`functions`)
+
 - `pnpm build` - Build TypeScript
 - `pnpm serve` - Start Firebase emulator
 - `pnpm deploy` - Deploy to Firebase
 
 ### Seeding (`packages/seeding`)
+
 - `pnpm ingest <path>` - Ingest corpus from directory
 - `pnpm query <question>` - Query the RAG system
 
 ## 🏗️ Architecture
 
 ### Frontend (React + Vite)
+
 - **Chat Interface**: Main conversational UI
 - **Message Components**: Display user queries and AI responses
 - **Source Citations**: Expandable legal source references
 - **Rating System**: Thumbs up/down for answer quality
 
 ### Backend (Firebase Functions + tRPC)
+
 - **API Layer**: Type-safe tRPC procedures
 - **Authentication**: Firebase Auth integration
 - **Database**: Firestore for chat history and user data
 - **AI Integration**: Vertex AI RAG engine calls
 
 ### AI Pipeline (Vertex AI)
+
 - **Document Processing**: PDF extraction and chunking
 - **Vector Search**: Semantic document retrieval
 - **RAG Engine**: Context-aware answer generation
@@ -195,6 +208,7 @@ cd functions && pnpm test
 ### Firebase Deployment
 
 1. **Configure Firebase project**
+
    ```bash
    firebase use <project-id>
    ```
@@ -207,6 +221,7 @@ cd functions && pnpm test
 ### Vertex AI Setup
 
 1. **Enable Vertex AI API**
+
    ```bash
    gcloud services enable aiplatform.googleapis.com
    ```
@@ -230,4 +245,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## ⚠️ Legal Disclaimer
 
-This application provides general legal information for educational purposes only. It is not a substitute for professional legal advice. Always consult with a qualified lawyer for specific legal matters. The information provided may not be complete, accurate, or up-to-date. 
+This application provides general legal information for educational purposes only. It is not a substitute for professional legal advice. Always consult with a qualified lawyer for specific legal matters. The information provided may not be complete, accurate, or up-to-date.
