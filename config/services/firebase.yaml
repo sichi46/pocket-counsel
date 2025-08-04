@@ -8,7 +8,7 @@ firestore:
   indexes: 'firestore.indexes.json'
 
 functions:
-  runtime: nodejs18
+  runtime: nodejs22
   memory: 512MB
   timeout: 60s
   environment:
