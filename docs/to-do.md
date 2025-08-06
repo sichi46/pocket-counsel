@@ -10,7 +10,7 @@ Completed Tasks:
 
 Infrastructure & DevOps:
 
-[x] Initialize PNPM monorepo with Turborepo for build orchestration.
+[x] Initialize NPM monorepo with Turborepo for build orchestration.
 
 [x] Set up the Firebase project (pocketcounsel-prod) with Auth, Firestore, and Cloud Functions enabled.
 

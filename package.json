@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "AI-powered guide that makes Zambian law accessible and understandable for everyone",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "functions"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -16,14 +21,12 @@
     "setup:databases": "./scripts/setup-databases.sh"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/node": "^20.0.0",
     "prettier": "^3.0.0",
     "turbo": "^1.10.0",
     "typescript": "^5.0.0"
   },
-  "packageManager": "pnpm@8.0.0",
   "engines": {
-    "node": ">=22.0.0",
-    "pnpm": ">=8.0.0"
+    "node": ">=20.0.0"
   }
 }

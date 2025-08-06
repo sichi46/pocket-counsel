@@ -55,11 +55,11 @@ Backend services: Firebase (Auth, Firestore), Vertex AI (RAG Engine, Vector Sear
 
 Infrastructure as Code: Terraform
 
-Monorepo: PNPM workspaces + Turborepo
+Monorepo: NPM workspaces + Turborepo
 
 CI / CD: GitHub Actions
 
-3. MONOREPO LAYOUT (PNPM)
+3. MONOREPO LAYOUT (NPM)
    The monorepo is structured to separate concerns, with distinct directories for the frontend, backend functions, shared packages, configuration, infrastructure, and automation scripts.
 
 .

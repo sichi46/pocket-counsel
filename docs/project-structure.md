@@ -2,7 +2,7 @@
 
 ## 📁 Overview
 
-Pocket Counsel is a monorepo built with **PNPM + Turborepo** for optimal build orchestration and dependency management. The project follows SOLID principles and separation of concerns for scalable architecture.
+Pocket Counsel is a monorepo built with **NPM + Turborepo** for optimal build orchestration and dependency management. The project follows SOLID principles and separation of concerns for scalable architecture.
 
 ## 🏗️ Monorepo Architecture
 
@@ -120,22 +120,22 @@ docs/
 ### **Development Commands:**
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Start development servers
-pnpm dev
+npm run dev
 
 # Build all packages
-pnpm build
+npm run build
 
 # Run linting
-pnpm lint
+npm run lint
 
 # Run tests
-pnpm test
+npm run test
 
 # Type checking
-pnpm type-check
+npm run type-check
 ```
 
 ### **Deployment Commands:**
@@ -209,7 +209,7 @@ npm run setup:databases
 
 ### **Backend:**
 - Firebase Cloud Functions
-- Node.js 22+ (latest LTS)
+- Node.js 20+ (latest LTS)
 - TypeScript for type safety
 - Firebase Admin SDK
 
@@ -220,7 +220,7 @@ npm run setup:databases
 - Google Cloud Vertex AI (future)
 
 ### **Development Tools:**
-- PNPM for package management
+- NPM for package management
 - Turborepo for build orchestration
 - ESLint + Prettier for code quality
 - Husky for git hooks
@@ -237,4 +237,4 @@ npm run setup:databases
 
 ---
 
-*This structure supports the AI-powered Zambian legal guide vision while maintaining enterprise-grade software engineering practices.* 
+*This structure supports the AI-powered Zambian legal guide vision while maintaining enterprise-grade software engineering practices.*

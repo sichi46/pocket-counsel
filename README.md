@@ -38,14 +38,13 @@ pocket-counsel/
 - **AI**: Google Cloud Vertex AI (RAG Engine, Vector Search)
 - **Database**: Firestore (Multi-database setup: staging-db, production)
 - **Authentication**: Firebase Auth
-- **Build System**: PNPM + Turborepo
+- **Build System**: NPM + Turborepo
 - **CI/CD**: GitHub Actions
 - **Environment**: Multi-environment setup (development, staging, production)
 
 ## 📋 Prerequisites
 
-- Node.js 18+
-- PNPM 8+
+- Node.js 20+
 - Firebase CLI
 - Google Cloud CLI
 
@@ -61,7 +60,7 @@ pocket-counsel/
 2. **Install dependencies**
 
    ```bash
-   pnpm install
+   npm install
    ```
 
 3. **Set up environment variables**
@@ -88,23 +87,23 @@ pocket-counsel/
 
    ```bash
    # Start all services
-   pnpm dev
+   npm run dev
 
    # Or start individual services
-   pnpm --filter @pocket-counsel/web dev
-   pnpm --filter functions dev
+   npm run --workspace=@pocket-counsel/web dev
+   npm run --workspace=functions dev
    ```
 
 ## 🔧 Available Scripts
 
 ### Development
 
-- `pnpm dev` - Start all development servers
-- `pnpm build` - Build all packages
-- `pnpm lint` - Lint all packages
-- `pnpm test` - Run tests
-- `pnpm type-check` - Type check all packages
-- `pnpm clean` - Clean all build artifacts
+- `npm run dev` - Start all development servers
+- `npm run build` - Build all packages
+- `npm run lint` - Lint all packages
+- `npm run test` - Run tests
+- `npm run type-check` - Type check all packages
+- `npm run clean` - Clean all build artifacts
 
 ### Deployment
 

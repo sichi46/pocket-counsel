@@ -15,21 +15,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          node-version: '20'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
         
       - name: Lint
-        run: pnpm lint
+        run: npm run lint
         
       - name: Type check
-        run: pnpm type-check
+        run: npm run type-check
 
   build:
     runs-on: ubuntu-latest
@@ -40,15 +35,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          node-version: '20'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
         
       - name: Build
-        run: pnpm build 
+        run: npm run build

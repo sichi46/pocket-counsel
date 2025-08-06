@@ -1,0 +1,2 @@
+google-cloud-aiplatform[generative_ai]
+google-cloud-storage

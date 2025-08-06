@@ -1,6 +1,5 @@
 # Dependencies
 node_modules/
-.pnpm-store/
 
 # Build outputs
 dist/
@@ -18,7 +17,7 @@ out/
 # Pocket Counsel Environment Files (keep only .env.example)
 config/environments/development.env
 config/environments/staging.env
-config/environments/production.env
+config.environments/production.env
 
 # Sensitive Documentation (keep only core docs)
 docs/github-secrets-setup.md
@@ -43,7 +42,6 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
 # Runtime data
 pids
@@ -66,7 +64,6 @@ ui-debug.log
 !package.json
 !tsconfig.json
 !turbo.json
-!pnpm-workspace.yaml
 
 # Turbo
-.turbo/ 
+.turbo/

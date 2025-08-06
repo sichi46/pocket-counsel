@@ -4,13 +4,15 @@
   "description": "Scripts to ingest legal corpus into Vertex AI",
   "private": true,
   "scripts": {
-    "ingest": "tsx src/ingest.ts",
-    "validate": "tsx src/validate.ts",
     "build": "tsc",
     "clean": "rm -rf dist",
-    "type-check": "tsc --noEmit"
+    "ingest": "python src/ingest_and_embed.py",
+    "type-check": "tsc --noEmit",
+    "validate": "tsx src/validate.ts"
   },
   "dependencies": {
+    "@google-cloud/aiplatform": "^3.0.0",
+    "@google-cloud/storage": "^7.0.0",
     "@google-cloud/vertexai": "^0.1.0",
     "@pocket-counsel/shared": "file:../shared",
     "zod": "^3.22.0"
