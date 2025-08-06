@@ -66,33 +66,66 @@ export class RAGService {
     try {
       console.log('Processing documents for RAG system...');
       
-      // Process documents in smaller batches to avoid memory issues
+      // Process all documents instead of just the first 3
       const documents = await this.documentService.listDocuments();
       console.log(`Found ${documents.length} documents to process`);
       
-      // Start with just a few documents for testing
-      const testDocuments = documents.slice(0, 3); // Process only first 3 documents
-      const allChunks: DocumentChunk[] = [];
+      if (documents.length === 0) {
+        console.log('No documents found to process');
+        return;
+      }
       
-      for (const document of testDocuments) {
-        try {
-          console.log(`Processing document: ${document}`);
-          const chunks = await this.documentService.processDocument(document);
-          allChunks.push(...chunks);
-          console.log(`Completed processing ${document}: ${chunks.length} chunks`);
-        } catch (error) {
-          console.error(`Failed to process ${document}:`, error);
-          // Continue with other documents
+      const allChunks: DocumentChunk[] = [];
+      const processedDocuments: string[] = [];
+      const failedDocuments: string[] = [];
+      
+      // Process documents in batches to avoid memory issues
+      const batchSize = 3; // Process 3 documents at a time
+      
+      for (let i = 0; i < documents.length; i += batchSize) {
+        const batch = documents.slice(i, i + batchSize);
+        console.log(`Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(documents.length / batchSize)}: ${batch.join(', ')}`);
+        
+        for (const document of batch) {
+          try {
+            console.log(`Processing document: ${document}`);
+            const chunks = await this.documentService.processDocument(document);
+            allChunks.push(...chunks);
+            processedDocuments.push(document);
+            console.log(`Completed processing ${document}: ${chunks.length} chunks`);
+          } catch (error) {
+            console.error(`Failed to process ${document}:`, error);
+            failedDocuments.push(document);
+            // Continue with other documents
+          }
+        }
+        
+        // Add a small delay between batches to prevent overwhelming the system
+        if (i + batchSize < documents.length) {
+          console.log('Waiting 2 seconds before processing next batch...');
+          await new Promise(resolve => setTimeout(resolve, 2000));
         }
       }
       
+      console.log(`Processing complete. Processed: ${processedDocuments.length}, Failed: ${failedDocuments.length}`);
       console.log(`Created ${allChunks.length} total chunks`);
       
-      // Create embeddings for chunks
+      if (failedDocuments.length > 0) {
+        console.log('Failed documents:', failedDocuments);
+      }
+      
+      if (allChunks.length === 0) {
+        console.log('No chunks created, skipping embedding and vector database operations');
+        return;
+      }
+      
+      // Create embeddings for chunks in batches
+      console.log('Creating embeddings for chunks...');
       const embeddings = await this.embeddingService.createEmbeddingsForChunks(allChunks);
       console.log(`Created ${embeddings.length} embeddings`);
       
       // Add to vector database
+      console.log('Adding chunks to vector database...');
       await this.vectorDatabase.addChunks(allChunks, embeddings);
       console.log('Documents processed and added to vector database');
     } catch (error) {

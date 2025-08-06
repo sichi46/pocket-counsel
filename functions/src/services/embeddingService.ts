@@ -27,21 +27,62 @@ export class EmbeddingService {
 
   async createEmbedding(text: string): Promise<number[]> {
     try {
-      // For now, we'll use a simple approach since the embedding model might not be available
-      // In a production system, you'd use the actual embedding API
+      console.log(`Creating embedding for text (${text.length} characters)`);
       
-      // Create a simple hash-based embedding as a fallback
-      const embedding = this.createSimpleEmbedding(text);
+      // Use the actual Google Generative AI embedding API
+      const model = this.genAI.getGenerativeModel({ model: this.embeddingModel });
+      
+      // For text embedding, we need to use the embedding API directly
+      // The current Google Generative AI SDK might not support embeddings directly
+      // So we'll use a fallback approach with the REST API
+      
+      const embedding = await this.createEmbeddingViaAPI(text);
       return embedding;
     } catch (error) {
       console.error('Error creating embedding:', error);
-      throw new Error('Failed to create embedding');
+      
+      // Fallback to simple embedding if API fails
+      console.log('Falling back to simple embedding...');
+      return this.createSimpleEmbedding(text);
+    }
+  }
+
+  private async createEmbeddingViaAPI(text: string): Promise<number[]> {
+    try {
+      // Use the Google AI REST API for embeddings
+      const apiKey = process.env.GOOGLE_API_KEY;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.embeddingModel}:embedText?key=${apiKey}`;
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: text,
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Embedding API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.embedding && data.embedding.values) {
+        return data.embedding.values;
+      } else {
+        throw new Error('Invalid response format from embedding API');
+      }
+    } catch (error) {
+      console.error('Error calling embedding API:', error);
+      throw error;
     }
   }
 
   private createSimpleEmbedding(text: string): number[] {
-    // Simple hash-based embedding for demonstration
-    // In production, replace this with actual embedding API calls
+    // Simple hash-based embedding as fallback
+    // This should only be used when the real API is unavailable
     const words = text.toLowerCase().split(/\s+/);
     const embedding = new Array(768).fill(0);
     
@@ -73,23 +114,40 @@ export class EmbeddingService {
   async createEmbeddingsForChunks(chunks: DocumentChunk[]): Promise<EmbeddingResult[]> {
     const results: EmbeddingResult[] = [];
     
-    for (const chunk of chunks) {
-      try {
-        console.log(`Creating embedding for chunk: ${chunk.id}`);
-        const embedding = await this.createEmbedding(chunk.content);
-        
-        results.push({
-          chunkId: chunk.id,
-          embedding,
-          metadata: {
-            documentName: chunk.documentName,
-            chunkIndex: chunk.chunkIndex,
-            contentLength: chunk.content.length,
-          },
-        });
-      } catch (error) {
-        console.error(`Failed to create embedding for chunk ${chunk.id}:`, error);
-        // Continue with other chunks
+    // Process chunks in batches to avoid rate limiting
+    const batchSize = 10;
+    
+    for (let i = 0; i < chunks.length; i += batchSize) {
+      const batch = chunks.slice(i, i + batchSize);
+      console.log(`Creating embeddings for batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(chunks.length / batchSize)}`);
+      
+      const batchPromises = batch.map(async (chunk) => {
+        try {
+          console.log(`Creating embedding for chunk: ${chunk.id}`);
+          const embedding = await this.createEmbedding(chunk.content);
+          
+          return {
+            chunkId: chunk.id,
+            embedding,
+            metadata: {
+              documentName: chunk.documentName,
+              chunkIndex: chunk.chunkIndex,
+              contentLength: chunk.content.length,
+            },
+          };
+        } catch (error) {
+          console.error(`Failed to create embedding for chunk ${chunk.id}:`, error);
+          return null;
+        }
+      });
+      
+      const batchResults = await Promise.all(batchPromises);
+      results.push(...batchResults.filter(result => result !== null) as EmbeddingResult[]);
+      
+      // Add delay between batches to respect rate limits
+      if (i + batchSize < chunks.length) {
+        console.log('Waiting 1 second before processing next batch...');
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
     

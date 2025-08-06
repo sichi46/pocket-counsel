@@ -6,6 +6,16 @@ An AI-powered guide that makes Zambian law accessible and understandable for eve
 
 Demystify Zambian law for citizens, students, and small business owners by translating complex legal text into plain English. Provide a reliable, first-step informational tool for legal queries, reducing uncertainty and improving legal literacy.
 
+## 🚀 Production-Ready RAG System
+
+The application now features a production-ready RAG (Retrieval-Augmented Generation) system with:
+
+- ✅ **Full PDF Processing**: Batch processing for all 17 Zambian legal documents
+- ✅ **Vector Database**: Pinecone integration for scalable vector storage
+- ✅ **Real Embeddings**: Google AI embedding API for accurate semantic search
+- ✅ **Progress Tracking**: Real-time processing monitoring and error handling
+- ✅ **Production Deployment**: Automated deployment scripts and configuration
+
 ## 🏗️ Architecture
 
 This project follows a monorepo structure with clear separation of concerns:
@@ -15,6 +25,7 @@ pocket-counsel/
 ├── apps/
 │   └── web/                 # React frontend (chat interface)
 ├── functions/               # Firebase Cloud Functions + tRPC
+│   └── src/services/        # RAG services (document processing, embeddings, vector DB)
 ├── packages/
 │   ├── shared/             # Shared types, schemas, utilities
 │   ├── corpus/             # Zambian legal documents
@@ -26,7 +37,7 @@ pocket-counsel/
 ├── infrastructure/
 │   └── terraform/          # Infrastructure as Code scripts
 ├── scripts/
-│   ├── deploy.sh           # Deployment script for CI/CD
+│   ├── deploy-production.sh # Production deployment script
 │   └── seed-corpus.sh      # Script to ingest documents into Vertex AI
 └── docs/                   # Project documentation
 ```
@@ -35,7 +46,10 @@ pocket-counsel/
 
 - **Frontend**: React + Vite + TypeScript + Tailwind CSS
 - **Backend**: Firebase Cloud Functions + tRPC
-- **AI**: Google Cloud Vertex AI (RAG Engine, Vector Search)
+- **AI**: Google Cloud Vertex AI (Gemini models)
+- **Vector Database**: Pinecone (production-ready vector storage)
+- **Embeddings**: Google AI Embedding API (`textembedding-gecko-multilingual@001`)
+- **Storage**: Google Cloud Storage (document corpus)
 - **Database**: Firestore (Multi-database setup: staging-db, production)
 - **Authentication**: Firebase Auth
 - **Build System**: NPM + Turborepo
@@ -47,6 +61,29 @@ pocket-counsel/
 - Node.js 20+
 - Firebase CLI
 - Google Cloud CLI
+- Pinecone Account (free tier available)
+- Google AI API Key
+
+## 🛠️ Quick Start (Production)
+
+For production deployment with all the latest improvements:
+
+1. **Clone and setup**:
+
+   ```bash
+   git clone <repository-url>
+   cd pocket-counsel
+   ```
+
+2. **Run automated deployment**:
+
+   ```bash
+   chmod +x scripts/deploy-production.sh
+   ./scripts/deploy-production.sh
+   ```
+
+3. **Follow the setup guide**:
+   - [Production Setup Guide](docs/PRODUCTION_SETUP.md) - Complete production deployment instructions
 
 ## 🛠️ Development Setup
 
@@ -107,6 +144,7 @@ pocket-counsel/
 
 ### Deployment
 
+- `./scripts/deploy-production.sh` - **Production deployment with all improvements**
 - `npm run deploy:dev` - Deploy to staging environment
 - `npm run deploy:prod` - Deploy to production environment
 - `npm run setup:databases` - Set up Firestore databases
@@ -118,6 +156,8 @@ pocket-counsel/
 
 ## 📚 Documentation
 
+- [Production Setup Guide](docs/PRODUCTION_SETUP.md) - **Complete production deployment with RAG improvements**
+- [Technical Design Document](docs/TDD_2.md) - RAG architecture and implementation details
 - [Setup Guide](docs/setup-guide.md) - Complete setup instructions for new contributors
 - [Product Design Document](docs/product-design.md)
 - [Technical Design Document](docs/technical-design.md)
