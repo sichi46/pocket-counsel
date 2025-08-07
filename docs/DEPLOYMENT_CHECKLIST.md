@@ -5,6 +5,7 @@ Use this checklist to ensure all deployment steps are completed correctly.
 ## ✅ Pre-Deployment Checklist
 
 ### Environment Setup
+
 - [ ] `.env` file created with all required variables
 - [ ] Google AI API key obtained and added to `.env`
 - [ ] Pinecone API key obtained and added to `.env`
@@ -12,12 +13,14 @@ Use this checklist to ensure all deployment steps are completed correctly.
 - [ ] Google Cloud project ID added to `.env`
 
 ### Prerequisites
+
 - [ ] Node.js 20+ installed
 - [ ] Firebase CLI installed (`npm install -g firebase-tools`)
 - [ ] Google Cloud CLI installed (optional but recommended)
 - [ ] Git repository cloned and up to date
 
 ### API Keys and Services
+
 - [ ] Google AI API key with embedding access
 - [ ] Pinecone account created
 - [ ] Firebase project created
@@ -52,7 +55,7 @@ Use this checklist to ensure all deployment steps are completed correctly.
 - [ ] Documents are in PDF format (or TXT)
 - [ ] Document names are descriptive
 - [ ] Individual files are under 100MB
-- [ ] Total documents count: _____ (up to 17 recommended)
+- [ ] Total documents count: **\_** (up to 17 recommended)
 
 ## ✅ Step 4: Deployment Execution
 
@@ -71,16 +74,19 @@ Use this checklist to ensure all deployment steps are completed correctly.
 ## ✅ Step 5: Verification
 
 ### Firebase Functions
+
 - [ ] Functions deployed successfully
 - [ ] No deployment errors in Firebase console
 - [ ] Function logs accessible
 
 ### Storage
+
 - [ ] Documents uploaded to Google Cloud Storage
 - [ ] Bucket accessible and contains uploaded files
 - [ ] File permissions set correctly
 
 ### Pinecone
+
 - [ ] Index accessible via API
 - [ ] No connection errors
 - [ ] Index ready for vector storage
@@ -88,12 +94,14 @@ Use this checklist to ensure all deployment steps are completed correctly.
 ## ✅ Step 6: Testing
 
 ### First Query Test
+
 - [ ] Made first query to trigger document processing
 - [ ] Processing started (check Firebase logs)
 - [ ] No errors during processing
 - [ ] Processing completed successfully
 
 ### System Verification
+
 - [ ] RAG system responds to queries
 - [ ] Answers include source citations
 - [ ] Vector search working correctly
@@ -102,12 +110,14 @@ Use this checklist to ensure all deployment steps are completed correctly.
 ## ✅ Post-Deployment Monitoring
 
 ### Logs and Monitoring
+
 - [ ] Firebase Functions logs monitored
 - [ ] Pinecone dashboard checked for vector count
 - [ ] Google AI API usage monitored
 - [ ] No errors in system logs
 
 ### Performance
+
 - [ ] Query response times acceptable
 - [ ] Document processing completed
 - [ ] System handles expected load
@@ -118,6 +128,7 @@ Use this checklist to ensure all deployment steps are completed correctly.
 If deployment fails, check:
 
 ### Common Issues
+
 - [ ] API keys are correct and have proper permissions
 - [ ] Firebase project exists and is accessible
 - [ ] Google Cloud project has billing enabled
@@ -126,6 +137,7 @@ If deployment fails, check:
 - [ ] Network connectivity is stable
 
 ### Error Resolution
+
 - [ ] Check Firebase Functions logs for specific errors
 - [ ] Verify environment variables are loaded correctly
 - [ ] Confirm all dependencies are installed
@@ -154,4 +166,4 @@ Deployment is successful when:
 
 ---
 
-**Note**: Keep this checklist for future reference and troubleshooting. Update it as needed for your specific deployment environment. 
+**Note**: Keep this checklist for future reference and troubleshooting. Update it as needed for your specific deployment environment.

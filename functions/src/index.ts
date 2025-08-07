@@ -2,6 +2,7 @@
 
 import * as admin from 'firebase-admin';
 import express from 'express';
+import cors from 'cors'; // <-- 1. Import the cors package
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import { appRouter } from './trpc';
 
@@ -19,6 +20,11 @@ setGlobalOptions({
 admin.initializeApp();
 
 const app = express();
+
+// --- 2. Enable CORS for all routes ---
+// This will allow your frontend to make requests to the API.
+app.use(cors());
+
 app.use(
   '/trpc',
   createExpressMiddleware({

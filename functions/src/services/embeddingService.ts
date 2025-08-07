@@ -67,9 +67,9 @@ export class EmbeddingService {
         throw new Error(`Embedding API error: ${response.status} ${response.statusText}`);
       }
       
-      const data = await response.json();
+      const data = await response.json() as any;
       
-      if (data.embedding && data.embedding.values) {
+      if (data?.embedding?.values) {
         return data.embedding.values;
       } else {
         throw new Error('Invalid response format from embedding API');

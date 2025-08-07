@@ -38,7 +38,7 @@ export class VectorDatabase {
       
       // Check if index exists, create if it doesn't
       const indexes = await this.pinecone.listIndexes();
-      const indexExists = indexes.some(index => index.name === this.indexName);
+      const indexExists = (indexes as any[]).some((index: any) => index.name === this.indexName);
       
       if (!indexExists) {
         console.log(`Creating Pinecone index: ${this.indexName}`);
@@ -190,7 +190,7 @@ export class VectorDatabase {
       const index = this.pinecone.index(this.indexName);
       const response = await index.fetch([chunkId]);
       
-      const vector = response.vectors[chunkId];
+      const vector = (response as any).vectors[chunkId];
       if (!vector || !vector.metadata) {
         return null;
       }
@@ -223,7 +223,7 @@ export class VectorDatabase {
       const index = this.pinecone.index(this.indexName);
       const response = await index.fetch([chunkId]);
       
-      const vector = response.vectors[chunkId];
+      const vector = (response as any).vectors[chunkId];
       if (!vector || !vector.metadata) {
         return null;
       }
@@ -253,8 +253,8 @@ export class VectorDatabase {
       const stats = await index.describeIndexStats();
       
       return {
-        chunks: stats.totalVectorCount || 0,
-        embeddings: stats.totalVectorCount || 0,
+        chunks: (stats as any).totalRecordCount || 0,
+        embeddings: (stats as any).totalRecordCount || 0,
       };
     } catch (error) {
       console.error('Error getting Pinecone stats:', error);
