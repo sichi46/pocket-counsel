@@ -28,5 +28,8 @@
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.16.0"
   }
 }

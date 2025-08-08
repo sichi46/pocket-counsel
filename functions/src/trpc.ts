@@ -1,6 +1,7 @@
 import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { DocumentProcessor } from './services/documentProcessor';
 
 // --- Configuration ---
 const GCP_PROJECT_ID = 'pocket-counsel';
@@ -11,66 +12,53 @@ const GEMINI_MODEL = 'gemini-1.5-flash';
 
 const t = initTRPC.create();
 
-// Mock document database for testing
-const mockDocuments = [
-  {
-    id: 'children-code',
-    title: 'The Children\'s Code Act No. 12 of 2022',
-    content: 'The Children\'s Code Act provides comprehensive protection for children in Zambia. It establishes the rights of children including the right to education, health care, protection from abuse and exploitation, and the right to participate in decisions affecting them. The Act also establishes mechanisms for child protection and welfare.',
-    source: 'ACT No. 12 OF 2022, The Children\'s Code FINAL.pdf'
-  },
-  {
-    id: 'employment-code',
-    title: 'The Employment Code Act No. 3 of 2019',
-    content: 'The Employment Code Act regulates employment relationships in Zambia. It covers minimum wage, working hours, leave entitlements, termination procedures, and worker protection. The Act also establishes the Employment Rights Tribunal for resolving employment disputes.',
-    source: 'The Employment Code Act No. 3 of 2019.pdf'
-  },
-  {
-    id: 'companies-act',
-    title: 'The Companies Act 2017',
-    content: 'The Companies Act governs the formation, operation, and dissolution of companies in Zambia. It covers company registration, corporate governance, shareholder rights, director responsibilities, and financial reporting requirements.',
-    source: 'The Companies Act-2017-10-publication-document.pdf'
-  }
-];
+// Initialize document processor lazily
+let documentProcessor: DocumentProcessor | null = null;
 
-// Simple search function
-function searchDocuments(query: string, documents: typeof mockDocuments) {
-  const queryWords = query.toLowerCase().split(/\s+/).filter(word => word.length > 2);
-  
-  return documents.map(doc => {
-    const contentWords = doc.content.toLowerCase().split(/\s+/).filter(word => word.length > 2);
-    const titleWords = doc.title.toLowerCase().split(/\s+/).filter(word => word.length > 2);
-    
-    const contentMatches = queryWords.filter(word => contentWords.includes(word)).length;
-    const titleMatches = queryWords.filter(word => titleWords.includes(word)).length;
-    
-    const score = contentMatches + (titleMatches * 2); // Title matches are weighted higher
-    
-    return { ...doc, score };
-  })
-  .filter(doc => doc.score > 0)
-  .sort((a, b) => b.score - a.score)
-  .slice(0, 3);
+function getDocumentProcessor(): DocumentProcessor {
+  if (!documentProcessor) {
+    documentProcessor = new DocumentProcessor();
+  }
+  return documentProcessor;
 }
 
 export const appRouter = t.router({
   health: t.procedure
     .query(async () => {
-      return {
-        status: 'healthy',
-        timestamp: new Date().toISOString(),
-        project: GCP_PROJECT_ID,
-        location: GCP_LOCATION,
-        models: {
-          generative: GEMINI_MODEL,
-          provider: 'Google Generative AI',
-        },
-        rag: {
-          status: 'active',
-          documents: mockDocuments.length,
-          type: 'mock-database'
-        }
-      };
+      try {
+        // Get processed documents count
+        const documents = await getDocumentProcessor().getProcessedDocuments();
+        
+        return {
+          status: 'healthy',
+          timestamp: new Date().toISOString(),
+          project: GCP_PROJECT_ID,
+          location: GCP_LOCATION,
+          models: {
+            generative: GEMINI_MODEL,
+            provider: 'Google Generative AI',
+          },
+          rag: {
+            status: 'active',
+            documents: documents.length,
+            type: 'firestore-database'
+          }
+        };
+      } catch (error) {
+        console.error('Health check error:', error);
+        return {
+          status: 'error',
+          timestamp: new Date().toISOString(),
+          project: GCP_PROJECT_ID,
+          location: GCP_LOCATION,
+          error: error instanceof Error ? error.message : 'Unknown error',
+          rag: {
+            status: 'error',
+            documents: 0,
+            type: 'error'
+          }
+        };
+      }
     }),
 
   askQuestion: t.procedure
@@ -86,11 +74,11 @@ export const appRouter = t.router({
       try {
         const startTime = Date.now();
         
-        // Search for relevant documents
-        const searchResults = searchDocuments(question, mockDocuments).slice(0, topK);
+        // Search for relevant documents using real document processor
+        const searchResults = await getDocumentProcessor().searchDocuments(question, topK);
         console.log(`Found ${searchResults.length} relevant documents`);
         
-        // Prepare context
+        // Prepare context from real documents
         const context = searchResults.length > 0 
           ? searchResults.map((doc, index) => 
               `Document ${index + 1}: ${doc.title}\nSource: ${doc.source}\nContent: ${doc.content}\n\n---`
@@ -121,20 +109,20 @@ Please provide a clear, accurate answer based on the Zambian legal documents pro
         
         const searchTime = Date.now() - startTime;
         
-        // Prepare sources
+        // Prepare sources from real documents
         const sources = searchResults.map(doc => ({
           documentName: doc.source,
           title: doc.title,
           content: doc.content.substring(0, 200) + '...',
-          similarity: doc.score,
-          chunkIndex: 0,
+          similarity: doc.score ? doc.score / 10 : 0, // Normalize score
+          chunkIndex: doc.chunkIndex,
         }));
         
         return {
           answer,
           sources,
           metadata: {
-            totalChunks: mockDocuments.length,
+            totalChunks: searchResults.length,
             searchTime,
             model: GEMINI_MODEL,
           },
@@ -158,25 +146,84 @@ Please provide a clear, accurate answer based on the Zambian legal documents pro
 
   getStats: t.procedure
     .query(async () => {
-      return {
-        success: true,
-        stats: {
-          documents: mockDocuments.length,
-          chunks: mockDocuments.length,
-          embeddings: mockDocuments.length,
-        },
-        type: 'mock-database'
-      };
+      try {
+        const documents = await getDocumentProcessor().getProcessedDocuments();
+        const totalChunks = documents.reduce((sum, doc) => sum + doc.chunks.length, 0);
+        
+        return {
+          success: true,
+          stats: {
+            documents: documents.length,
+            chunks: totalChunks,
+            embeddings: totalChunks, // Each chunk is an embedding
+          },
+          type: 'firestore-database'
+        };
+      } catch (error) {
+        console.error('Error getting stats:', error);
+        return {
+          success: false,
+          stats: {
+            documents: 0,
+            chunks: 0,
+            embeddings: 0,
+          },
+          type: 'error',
+          error: error instanceof Error ? error.message : 'Unknown error',
+        };
+      }
     }),
 
   listDocuments: t.procedure
     .query(async () => {
-      return {
-        success: true,
-        documents: mockDocuments.map(doc => doc.source),
-        count: mockDocuments.length,
-        type: 'mock-database'
-      };
+      try {
+        const documents = await getDocumentProcessor().getProcessedDocuments();
+        
+        return {
+          success: true,
+          documents: documents.map(doc => doc.source),
+          count: documents.length,
+          type: 'firestore-database'
+        };
+      } catch (error) {
+        console.error('Error listing documents:', error);
+        return {
+          success: false,
+          documents: [],
+          count: 0,
+          type: 'error',
+          error: error instanceof Error ? error.message : 'Unknown error',
+        };
+      }
+    }),
+
+  processDocuments: t.procedure
+    .query(async () => {
+      try {
+        console.log('🔄 Starting document processing via API...');
+        const processedDocuments = await getDocumentProcessor().processAllDocuments();
+        
+        return {
+          success: true,
+          message: `Successfully processed ${processedDocuments.length} documents`,
+          documents: processedDocuments.map(doc => ({
+            id: doc.id,
+            title: doc.title,
+            source: doc.source,
+            chunks: doc.chunks.length,
+            metadata: doc.metadata,
+          })),
+          totalChunks: processedDocuments.reduce((sum, doc) => sum + doc.chunks.length, 0),
+        };
+      } catch (error) {
+        console.error('Error processing documents:', error);
+        return {
+          success: false,
+          message: error instanceof Error ? error.message : 'Unknown error',
+          documents: [],
+          totalChunks: 0,
+        };
+      }
     }),
 });
 

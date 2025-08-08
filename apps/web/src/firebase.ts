@@ -3,14 +3,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// TODO: Replace with your actual Firebase project configuration
+// Firebase configuration for pocket-counsel project
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-auth-domain",
-  projectId: "your-project-id",
-  storageBucket: "your-storage-bucket",
-  messagingSenderId: "your-messaging-sender-id",
-  appId: "your-app-id"
+  apiKey: "AIzaSyDuAN_BpMae7xsuVGKtPtGlhWIo2SUKY8U",
+  authDomain: "pocket-counsel.firebaseapp.com",
+  projectId: "pocket-counsel",
+  storageBucket: "pocket-counsel.appspot.com",
+  messagingSenderId: "787651119619",
+  appId: "1:787651119619:web:your-app-id"
 };
 
 const app = initializeApp(firebaseConfig);

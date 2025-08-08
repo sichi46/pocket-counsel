@@ -1,0 +1,185 @@
+THE COMPANIES ACT 2017
+
+An Act to provide for the formation, registration, operation and dissolution of companies in Zambia, to establish corporate governance standards, and to provide for matters connected with or incidental to the foregoing.
+
+PART I - PRELIMINARY
+
+1. This Act may be cited as the Companies Act, 2017.
+
+2. In this Act, unless the context otherwise requires—
+"company" means a company incorporated under this Act;
+"private company" means a company which—
+(a) restricts the right to transfer its shares;
+(b) limits the number of its members to fifty;
+(c) prohibits any invitation to the public to subscribe for any shares or debentures of the company;
+"public company" means a company which is not a private company;
+"shareholder" means a person who holds shares in a company;
+"director" means a person appointed to the board of directors of a company;
+"memorandum" means the memorandum of association of a company;
+"articles" means the articles of association of a company.
+
+PART II - INCORPORATION OF COMPANIES
+
+3. (1) Any two or more persons may form and incorporate a company by—
+(a) subscribing their names to a memorandum of association;
+(b) complying with the requirements of this Act as to registration.
+
+(2) A company may be formed for any lawful purpose.
+
+4. (1) The memorandum of a company shall state—
+(a) the name of the company;
+(b) the objects of the company;
+(c) the amount of the share capital and the division thereof into shares of a fixed amount;
+(d) the names, addresses and occupations of the subscribers;
+(e) the number of shares taken by each subscriber.
+
+(2) The memorandum shall be signed by each subscriber in the presence of at least one witness.
+
+5. (1) The articles of a company shall regulate the internal management of the company.
+
+(2) The articles may adopt all or any of the regulations contained in the First Schedule to this Act.
+
+(3) The articles shall be signed by each subscriber to the memorandum.
+
+PART III - REGISTRATION OF COMPANIES
+
+6. (1) The memorandum and articles, if any, shall be delivered to the Registrar of Companies.
+
+(2) The Registrar shall register the company if he is satisfied that—
+(a) the documents are in the prescribed form;
+(b) the name of the company is not identical with or too similar to the name of an existing company;
+(c) the requirements of this Act have been complied with.
+
+(3) Upon registration, the Registrar shall issue a certificate of incorporation.
+
+7. (1) A company shall have a registered office in Zambia.
+
+(2) The registered office shall be the address for service of documents on the company.
+
+(3) A company shall notify the Registrar of any change in the address of its registered office.
+
+PART IV - SHARE CAPITAL AND SHARES
+
+8. (1) The share capital of a company shall be divided into shares of a fixed amount.
+
+(2) Shares may be of different classes with different rights.
+
+(3) Shares may be issued for cash or for consideration other than cash.
+
+9. (1) A company may issue shares at a premium or at a discount.
+
+(2) Shares issued at a premium shall be paid up to the extent of the premium.
+
+(3) Shares issued at a discount shall be paid up to the extent of the discount.
+
+10. (1) A company may purchase its own shares.
+
+(2) The purchase of shares shall be authorized by a resolution of the shareholders.
+
+(3) The company shall maintain a register of shares purchased.
+
+PART V - DIRECTORS AND OFFICERS
+
+11. (1) Every company shall have at least one director.
+
+(2) A director shall be a natural person of full age and capacity.
+
+(3) A director may be appointed by the shareholders or by the board of directors.
+
+12. (1) The directors of a company shall manage the business and affairs of the company.
+
+(2) The directors shall act in the best interests of the company.
+
+(3) The directors shall exercise their powers for a proper purpose.
+
+13. (1) A director shall disclose any interest in a transaction with the company.
+
+(2) A director shall not vote on a matter in which he has an interest.
+
+(3) A director shall not use his position to gain an advantage for himself or another person.
+
+PART VI - SHAREHOLDERS' RIGHTS
+
+14. (1) A shareholder shall have the right to—
+(a) attend and vote at general meetings;
+(b) receive dividends when declared;
+(c) inspect the books and records of the company;
+(d) bring an action on behalf of the company;
+(e) petition for the winding up of the company.
+
+(2) The rights of shareholders may be varied by the articles of the company.
+
+15. (1) A company shall hold an annual general meeting within six months of the end of its financial year.
+
+(2) The annual general meeting shall—
+(a) receive and consider the financial statements;
+(b) appoint auditors;
+(c) elect directors;
+(d) transact any other business.
+
+16. (1) A shareholder may call a special general meeting.
+
+(2) A special general meeting shall be called within twenty-one days of the request.
+
+(3) The business of a special general meeting shall be limited to the matters specified in the notice.
+
+PART VII - FINANCIAL STATEMENTS AND AUDIT
+
+17. (1) A company shall prepare financial statements for each financial year.
+
+(2) The financial statements shall—
+(a) give a true and fair view of the financial position of the company;
+(b) comply with accounting standards;
+(c) be approved by the directors.
+
+18. (1) A company shall appoint an auditor.
+
+(2) The auditor shall be independent of the company.
+
+(3) The auditor shall express an opinion on the financial statements.
+
+19. (1) A company shall file its financial statements with the Registrar.
+
+(2) The financial statements shall be filed within six months of the end of the financial year.
+
+(3) The financial statements shall be available for inspection by the public.
+
+PART VIII - WINDING UP
+
+20. (1) A company may be wound up—
+(a) by the court;
+(b) voluntarily by the shareholders;
+(c) under the supervision of the court.
+
+(2) A company may be wound up by the court if—
+(a) the company is unable to pay its debts;
+(b) the company has not commenced business within a year of incorporation;
+(c) the company has not carried on business for a year;
+(d) it is just and equitable to wind up the company.
+
+21. (1) A liquidator shall be appointed to wind up the company.
+
+(2) The liquidator shall—
+(a) collect the assets of the company;
+(b) pay the debts of the company;
+(c) distribute the surplus among the shareholders.
+
+(3) The liquidator shall file a final account with the Registrar.
+
+PART IX - ENFORCEMENT
+
+22. (1) The Registrar may investigate the affairs of a company.
+
+(2) The Registrar may require the production of documents.
+
+(3) The Registrar may appoint inspectors to investigate the company.
+
+23. Any person who contravenes the provisions of this Act commits an offence and is liable, upon conviction, to a fine not exceeding one hundred thousand penalty units or to imprisonment for a term not exceeding ten years, or to both.
+
+PART X - MISCELLANEOUS
+
+24. The Minister may make regulations for the better carrying out of the provisions of this Act.
+
+25. This Act shall come into operation on such date as the Minister may, by statutory instrument, appoint.
+
+This Act governs the formation, operation, and dissolution of companies in Zambia. It covers company registration, corporate governance, shareholder rights, director responsibilities, and financial reporting requirements.
