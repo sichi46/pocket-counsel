@@ -87,7 +87,7 @@ export const appRouter = t.router({
         const startTime = Date.now();
         
         // Search for relevant documents
-        const searchResults = searchDocuments(question, mockDocuments);
+        const searchResults = searchDocuments(question, mockDocuments).slice(0, topK);
         console.log(`Found ${searchResults.length} relevant documents`);
         
         // Prepare context
