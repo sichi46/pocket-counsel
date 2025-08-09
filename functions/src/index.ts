@@ -12,9 +12,9 @@ import { setGlobalOptions } from 'firebase-functions/v2/options';
 
 // Set runtime options for all functions in this file
 setGlobalOptions({ 
-  memory: '512MiB', 
+  memory: '2GiB', // Further increased for document processing
   region: 'us-central1',
-  timeoutSeconds: 60
+  timeoutSeconds: 540 // Increased timeout for document processing
 });
 
 admin.initializeApp();
@@ -33,9 +33,10 @@ app.use(
   })
 );
 
-// Your functions will automatically use the 512MiB memory setting
+// Your functions will automatically use the 2GiB memory setting
 export const api = onRequest({ 
-  memory: '512MiB',
+  memory: '2GiB', // Further increased for document processing
+  timeoutSeconds: 540,
   secrets: ['GOOGLE_API_KEY']
 }, app);
 

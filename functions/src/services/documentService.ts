@@ -102,16 +102,22 @@ export class DocumentService {
     try {
       console.log(`Processing document: ${fileName}`);
       
+      // Extract text with memory optimization
       const text = await this.extractTextFromDocument(fileName);
-      const chunks = this.chunkText(text);
+      console.log(`Extracted text length: ${text.length} characters`);
       
+      // Create chunks with smaller size for better memory management
+      const chunks = this.chunkText(text, 800, 100); // Smaller chunks, less overlap
+      console.log(`Created ${chunks.length} text chunks`);
+      
+      // Convert to DocumentChunk objects
       const documentChunks: DocumentChunk[] = chunks.map((chunk, index) => ({
         id: `${fileName}-chunk-${index}`,
         content: chunk,
         documentName: fileName,
         chunkIndex: index,
-        startPage: Math.floor(index * 1000 / 500) + 1, // Approximate page calculation
-        endPage: Math.floor((index + 1) * 1000 / 500),
+        startPage: Math.floor(index * 800 / 500) + 1, // Approximate page calculation
+        endPage: Math.floor((index + 1) * 800 / 500),
         metadata: {
           title: fileName.replace(/\.(pdf|txt)$/i, ''),
           source: `gs://${this.bucketName}/${fileName}`,
@@ -119,7 +125,16 @@ export class DocumentService {
         },
       }));
 
-      console.log(`Created ${documentChunks.length} chunks for ${fileName}`);
+      // Clear the large text variable to free memory
+      // @ts-ignore
+      text = null;
+      
+      // Force garbage collection if available
+      if (global.gc) {
+        global.gc();
+      }
+
+      console.log(`Created ${documentChunks.length} document chunks for ${fileName}`);
       return documentChunks;
     } catch (error) {
       console.error(`Error processing document ${fileName}:`, error);

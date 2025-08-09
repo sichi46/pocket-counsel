@@ -2,6 +2,8 @@ import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { DocumentProcessor } from './services/documentProcessor';
+import { GCSDocumentProcessor } from './services/gcsDocumentProcessor';
+import { RAGService } from './services/ragService';
 
 // --- Configuration ---
 const GCP_PROJECT_ID = 'pocket-counsel';
@@ -222,6 +224,99 @@ Please provide a clear, accurate answer based on the Zambian legal documents pro
           message: error instanceof Error ? error.message : 'Unknown error',
           documents: [],
           totalChunks: 0,
+        };
+      }
+    }),
+
+  // GCS Document Processing endpoints for Vertex AI Vector Search
+  processGCSDocuments: t.procedure
+    .query(async () => {
+      try {
+        console.log('🔄 Starting GCS document processing...');
+        const gcsProcessor = new GCSDocumentProcessor();
+        await gcsProcessor.processAllDocumentsFromGCS();
+        
+        return {
+          success: true,
+          message: 'Successfully processed all documents from GCS and added to Vertex AI Vector Search',
+        };
+      } catch (error) {
+        console.error('Error processing GCS documents:', error);
+        return {
+          success: false,
+          message: error instanceof Error ? error.message : 'Unknown error',
+        };
+      }
+    }),
+
+  processSpecificGCSDocument: t.procedure
+    .input(z.object({ filename: z.string() }))
+    .mutation(async ({ input }) => {
+      try {
+        console.log(`🔄 Processing specific document: ${input.filename}`);
+        const gcsProcessor = new GCSDocumentProcessor();
+        await gcsProcessor.processSpecificDocument(input.filename);
+        
+        return {
+          success: true,
+          message: `Successfully processed ${input.filename} and added to Vertex AI Vector Search`,
+        };
+      } catch (error) {
+        console.error('Error processing specific GCS document:', error);
+        return {
+          success: false,
+          message: error instanceof Error ? error.message : 'Unknown error',
+        };
+      }
+    }),
+
+  listGCSDocuments: t.procedure
+    .query(async () => {
+      try {
+        const gcsProcessor = new GCSDocumentProcessor();
+        const documents = await gcsProcessor.listDocumentsInGCS();
+        
+        return {
+          success: true,
+          documents,
+          count: documents.length,
+        };
+      } catch (error) {
+        console.error('Error listing GCS documents:', error);
+        return {
+          success: false,
+          documents: [],
+          count: 0,
+          message: error instanceof Error ? error.message : 'Unknown error',
+        };
+      }
+    }),
+
+  // RAG endpoints using Vertex AI Vector Search
+  askRAG: t.procedure
+    .input(z.object({ question: z.string(), topK: z.number().optional().default(5) }))
+    .mutation(async ({ input }) => {
+      try {
+        console.log(`🤖 RAG Question: ${input.question}`);
+        const ragService = new RAGService();
+        const response = await ragService.askQuestion(input.question, input.topK);
+        
+        return {
+          success: true,
+          ...response,
+        };
+      } catch (error) {
+        console.error('Error processing RAG question:', error);
+        return {
+          success: false,
+          answer: 'I apologize, but I encountered an error processing your question.',
+          sources: [],
+          metadata: {
+            totalChunks: 0,
+            searchTime: 0,
+            model: 'error',
+          },
+          message: error instanceof Error ? error.message : 'Unknown error',
         };
       }
     }),

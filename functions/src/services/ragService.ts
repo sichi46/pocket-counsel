@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { DocumentService, DocumentChunk } from './documentService';
 import { EmbeddingService, EmbeddingResult } from './embeddingService';
-import { VectorDatabase, VectorSearchResult } from './vectorDatabase';
+import { VertexVectorSearchService, VectorSearchResult } from './vertexVectorSearchService';
 
 export interface RAGResponse {
   answer: string;
@@ -22,7 +22,7 @@ export interface RAGResponse {
 export class RAGService {
   private documentService: DocumentService;
   private embeddingService: EmbeddingService;
-  private vectorDatabase: VectorDatabase;
+  private vertexVectorSearchService: VertexVectorSearchService;
   private genAI: GoogleGenerativeAI;
   private model: string;
   private isInitialized = false;
@@ -30,7 +30,7 @@ export class RAGService {
   constructor() {
     this.documentService = new DocumentService();
     this.embeddingService = new EmbeddingService();
-    this.vectorDatabase = new VectorDatabase();
+    this.vertexVectorSearchService = new VertexVectorSearchService();
     
     const apiKey = process.env.GOOGLE_API_KEY;
     if (!apiKey) {
@@ -39,6 +39,8 @@ export class RAGService {
     
     this.genAI = new GoogleGenerativeAI(apiKey);
     this.model = 'gemini-1.5-flash';
+    
+    console.log('RAG Service initialized with Vertex AI Vector Search');
   }
 
   async initialize(): Promise<void> {
@@ -50,7 +52,7 @@ export class RAGService {
       console.log('Initializing RAG service...');
       
       // Initialize vector database
-      await this.vectorDatabase.initialize();
+      await this.vertexVectorSearchService.initialize();
       
       // For now, skip document processing on initialization to avoid memory issues
       // Documents will be processed on-demand when needed
@@ -125,8 +127,8 @@ export class RAGService {
       console.log(`Created ${embeddings.length} embeddings`);
       
       // Add to vector database
-      console.log('Adding chunks to vector database...');
-      await this.vectorDatabase.addChunks(allChunks, embeddings);
+      console.log('Adding chunks to Vertex AI Vector Search...');
+      await this.vertexVectorSearchService.addChunks(allChunks, embeddings);
       console.log('Documents processed and added to vector database');
     } catch (error) {
       console.error('Error processing documents:', error);
@@ -139,7 +141,7 @@ export class RAGService {
       const startTime = Date.now();
       
       // Check if we have documents in the database
-      const stats = await this.vectorDatabase.getStats();
+      const stats = await this.vertexVectorSearchService.getStats();
       
       if (stats.chunks === 0) {
         console.log('No documents in database, processing documents first...');
@@ -147,7 +149,7 @@ export class RAGService {
       }
       
       // Search for relevant document chunks
-      const searchResults = await this.vectorDatabase.search(question, topK);
+      const searchResults = await this.vertexVectorSearchService.search(question, topK);
       console.log(`Found ${searchResults.length} relevant chunks`);
       
       // Prepare context from search results
@@ -159,7 +161,7 @@ export class RAGService {
       const searchTime = Date.now() - startTime;
       
       // Prepare sources
-      const sources = searchResults.map(result => ({
+      const sources = searchResults.map((result: any) => ({
         documentName: result.chunk.documentName,
         title: result.chunk.metadata.title,
         content: result.chunk.content.substring(0, 200) + '...',
@@ -167,7 +169,7 @@ export class RAGService {
         chunkIndex: result.chunk.chunkIndex,
       }));
       
-      const finalStats = await this.vectorDatabase.getStats();
+      const finalStats = await this.vertexVectorSearchService.getStats();
       
       return {
         answer,
@@ -230,7 +232,7 @@ Please provide a clear, accurate answer based on the Zambian legal documents pro
   }> {
     try {
       const documents = await this.documentService.listDocuments();
-      const vectorStats = await this.vectorDatabase.getStats();
+      const vectorStats = await this.vertexVectorSearchService.getStats();
       
       return {
         documents: documents.length,
@@ -248,7 +250,7 @@ Please provide a clear, accurate answer based on the Zambian legal documents pro
       console.log('Refreshing documents in RAG system...');
       
       // Clear existing data
-      await this.vectorDatabase.clear();
+      await this.vertexVectorSearchService.clear();
       
       // Reprocess all documents
       await this.processDocuments();
