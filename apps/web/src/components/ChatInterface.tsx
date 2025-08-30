@@ -1,10 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+// API Configuration - Updated to use the correct Cloud Functions URL
+const API_BASE_URL = 'https://us-central1-pocket-counsel.cloudfunctions.net/api';
+
 interface Message {
   id: string;
   text: string;
   isUser: boolean;
   timestamp: Date;
+}
+
+interface APIResponse {
+  answer: string;
+  sources?: Array<{
+    title: string;
+    content: string;
+    page?: number;
+  }>;
+  query: string;
+  timestamp: string;
 }
 
 const ChatInterface: React.FC = () => {
@@ -36,18 +50,49 @@ const ChatInterface: React.FC = () => {
     setInputValue('');
     setIsLoading(true);
 
-    // TODO: Replace with actual API call to your vector search backend
-    // For now, we'll simulate a response
-    setTimeout(() => {
+    try {
+      // Make actual API call to your RAG backend
+      const response = await fetch(API_BASE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          query: inputValue.trim(),
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+
+      const data: APIResponse = await response.json();
+      
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "I'm here to help you with Zambian legal questions. Please ask me anything about Zambian law, and I'll search through the legal documents to provide you with accurate information.",
+        text: data.answer,
         isUser: false,
         timestamp: new Date(),
       };
+      
       setMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('API call failed:', error);
+      
+      // Show error message to user
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm sorry, I encountered an error while processing your request. Please try again or contact support if the issue persists.",
+        isUser: false,
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const formatTime = (date: Date) => {

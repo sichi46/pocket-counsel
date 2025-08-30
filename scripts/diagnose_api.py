@@ -9,8 +9,8 @@ import json
 import time
 from datetime import datetime
 
-# Configuration - Update these with your actual values
-BASE_URL = "https://pocket-counsel-api-787651119619.us-central1.run.app"
+# Configuration - Updated to use the correct Cloud Functions URL
+BASE_URL = "https://us-central1-pocket-counsel.cloudfunctions.net/api"
 ENDPOINTS = [
     "/",
     "/health",
