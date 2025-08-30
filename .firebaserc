@@ -1,27 +1,5 @@
 {
   "projects": {
-    "default": "pocket-counsel",
-    "production": "pocket-counsel",
-    "staging": "pocket-counsel"
-  },
-  "targets": {
-    "pocket-counsel": {
-      "hosting": {
-        "production": [
-          "pocket-counsel"
-        ],
-        "staging": [
-          "pocket-counsel"
-        ]
-      },
-      "functions": {
-        "production": [
-          "pocket-counsel"
-        ],
-        "staging": [
-          "pocket-counsel"
-        ]
-      }
-    }
+    "default": "pocket-counsel"
   }
 }

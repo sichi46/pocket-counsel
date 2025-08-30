@@ -1,0 +1,9 @@
+config:
+  algorithmConfig:
+    treeAhConfig:
+      leafNodeEmbeddingCount: "500"
+      leafNodesToSearchPercent: 7
+  approximateNeighborsCount: 150
+  dimensions: 768
+  distanceMeasureType: COSINE_DISTANCE
+  shardSize: SHARD_SIZE_SMALL

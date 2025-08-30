@@ -10,10 +10,28 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-[#8B7355] hover:bg-[#6B4423] text-[#F5F5DC] font-medium py-2 px-4 rounded-lg transition-colors;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-[#6B4423] hover:bg-[#4A3428] text-[#F5F5DC] font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  /* Custom scrollbar for the chat */
+  .chat-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .chat-scrollbar::-webkit-scrollbar-track {
+    background: #4A3428;
+  }
+
+  .chat-scrollbar::-webkit-scrollbar-thumb {
+    background: #8B7355;
+    border-radius: 3px;
+  }
+
+  .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6B4423;
   }
 } 
