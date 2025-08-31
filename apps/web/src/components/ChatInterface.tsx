@@ -1,31 +1,62 @@
+// Inside src/components/ChatInterface.tsx
+
 import React, { useState, useRef, useEffect } from 'react';
 
-// API Configuration - Updated to use the correct Cloud Functions URL
-const API_BASE_URL = 'https://us-central1-pocket-counsel.cloudfunctions.net/api';
+// Directly use the external image URL
+const logoUrl = "https://i.ibb.co/xqJYpypz/Whats-App-Image-2025-08-07-at-01-17-33-24dc3c83.jpg";
 
 interface Message {
   id: string;
-  text: string;
-  isUser: boolean;
+  type: 'user' | 'assistant';
+  content: string;
   timestamp: Date;
+  sources?: Array<{
+    title: string;
+    content: string;
+    relevance: string;
+    distance: string;
+  }>;
 }
 
 interface APIResponse {
   answer: string;
-  sources?: Array<{
+  sources: Array<{
     title: string;
     content: string;
-    page?: number;
+    relevance: string;
+    distance: string;
   }>;
   query: string;
   timestamp: string;
+  processingTime: number;
+  status: string;
+  metadata: {
+    documentsRetrieved: number;
+    averageRelevance: number;
+    embeddingDimensions: number;
+    modelUsed: string;
+    vectorSearchIndex: string;
+    endpointId: string;
+    note: string;
+  };
 }
 
-const ChatInterface: React.FC = () => {
+function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [legalAreas] = useState([
+    'Business Law: Companies Act, Registration of Business Names Act',
+    'Employment Law: Employment Code Act, Workers\' Compensation Act',
+    'Property Law: Lands and Deeds Registry Act, Intestate Succession Act',
+    'Criminal Law: Criminal Procedure Code Act, Penal Code Act',
+    'Family Law: Children\'s Code, Constitutional rights',
+    'Financial Law: Banking and Financial Services Act',
+    'Intellectual Property: Copyright and Performance Rights Act'
+  ]);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const API_BASE_URL = 'https://us-central1-pocket-counsel.cloudfunctions.net/api';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -41,8 +72,8 @@ const ChatInterface: React.FC = () => {
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: inputValue.trim(),
-      isUser: true,
+      type: 'user',
+      content: inputValue.trim(),
       timestamp: new Date(),
     };
 
@@ -51,215 +82,172 @@ const ChatInterface: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Make actual API call to your RAG backend
       const response = await fetch(API_BASE_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        body: JSON.stringify({
-          query: inputValue.trim(),
-          timestamp: new Date().toISOString(),
-        }),
+        body: JSON.stringify({ query: inputValue.trim() }),
       });
 
       if (!response.ok) {
-        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        throw new Error(`API request failed: ${response.status}`);
       }
 
       const data: APIResponse = await response.json();
-      
-      const aiMessage: Message = {
+
+      const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: data.answer,
-        isUser: false,
+        type: 'assistant',
+        content: data.answer,
         timestamp: new Date(),
+        sources: data.sources,
       };
-      
-      setMessages(prev => [...prev, aiMessage]);
+
+      setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('API call failed:', error);
-      
-      // Show error message to user
+      console.error('Error calling API:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "I'm sorry, I encountered an error while processing your request. Please try again or contact support if the issue persists.",
-        isUser: false,
+        type: 'assistant',
+        content: 'I apologize, but I encountered an error while processing your request. Please try again or contact support if the issue persists.',
         timestamp: new Date(),
       };
-      
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formatTimestamp = (timestamp: Date) => {
+    return timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#5C4033]">
-      {/* Header */}
-      <header className="bg-[#4A3428] shadow-lg px-6 py-4">
-        <div className="flex items-center space-x-3">
-          <img src="/logo.svg" alt="Pocket Counsel Logo" className="w-10 h-10" />
-          <div>
-            <h1 className="text-2xl font-bold text-[#F5F5DC]">Pocket Counsel</h1>
-            <p className="text-sm text-[#D2B48C]">AI-powered Zambian Legal Assistant</p>
-          </div>
+    <div className="bg-[#5C4033] h-screen flex flex-col">
+      {/* Header with the new logo and title */}
+      <header className="bg-[#4A3428] text-[#F5F5DC] p-4 flex items-center justify-between">
+        <div className="flex items-center">
+          <img src={logoUrl} alt="Pocket Counsel Logo" className="h-10 w-10 mr-4 rounded-full" />
+          <h1 className="text-2xl font-bold">Pocket Counsel RAG</h1>
+        </div>
+        <div className="text-sm text-[#F5F5DC]/70">
+          Powered by Vertex AI & Gemini
         </div>
       </header>
 
-      {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 chat-scrollbar">
-        {messages.length === 0 && (
-          <div className="text-center py-8">
-            <div className="w-24 h-24 mx-auto mb-4 bg-[#8B7355] rounded-full flex items-center justify-center">
-              <img src="/logo.svg" alt="Logo" className="w-16 h-16" />
-            </div>
-            <h2 className="text-2xl font-semibold text-[#F5F5DC] mb-2">
-              Welcome to Pocket Counsel
-            </h2>
-            <p className="text-[#D2B48C] max-w-md mx-auto mb-8">
-              Your AI-powered guide to Zambian law. Ask me any legal question and I'll search through our comprehensive legal database to provide you with accurate information.
-            </p>
-            
-            {/* Legal Areas Panel */}
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-[#4A3428] rounded-lg p-6 border border-[#6B4423]">
-                <h3 className="text-lg font-semibold text-[#F5F5DC] mb-4 text-center">
-                  📚 Legal Areas Available
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">🏢 Business Law</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Companies Act</li>
-                      <li>• Registration of Business Names Act</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">👷 Employment Law</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Employment Code Act</li>
-                      <li>• Workers' Compensation Act</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">🏠 Property Law</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Lands and Deeds Registry Act</li>
-                      <li>• Intestate Succession Act</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">⚖️ Criminal Law</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Criminal Procedure Code Act</li>
-                      <li>• Penal Code Act</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">👨‍👩‍👧‍👦 Family Law</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Children's Code</li>
-                      <li>• Constitutional rights</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">💰 Financial Law</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Banking and Financial Services Act</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-[#6B4423] rounded-lg p-4 border border-[#8B7355]">
-                    <h4 className="font-medium text-[#F5F5DC] mb-2">🧠 Intellectual Property</h4>
-                    <ul className="text-sm text-[#D2B48C] space-y-1">
-                      <li>• Copyright and Performance Rights Act</li>
-                    </ul>
-                  </div>
-                </div>
-                
-                <div className="mt-6 text-center">
-                  <p className="text-sm text-[#CD853F]">
-                    💡 <span className="font-medium">3,913 legal document vectors</span> available for instant search
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-3xl px-4 py-3 rounded-lg ${
-                message.isUser
-                  ? 'bg-[#8B7355] text-[#F5F5DC]'
-                  : 'bg-[#6B4423] text-[#F5F5DC]'
-              }`}
-            >
-              <p className="text-sm leading-relaxed">{message.text}</p>
-              <p className={`text-xs mt-2 ${
-                message.isUser ? 'text-[#D2B48C]' : 'text-[#CD853F]'
-              }`}>
-                {formatTime(message.timestamp)}
-              </p>
-            </div>
-          </div>
-        ))}
-
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-[#6B4423] text-[#F5F5DC] px-4 py-3 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-[#D2B48C] rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-[#D2B48C] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-[#D2B48C] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                </div>
-                <span className="text-sm">Searching legal documents...</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
+      {/* Legal Areas Panel */}
+      <div className="bg-[#8B7355] p-3 text-[#F5F5DC] text-sm">
+        <div className="flex items-center justify-between">
+          <span className="font-semibold">📚 Legal Areas Available:</span>
+          <span className="bg-[#6B4423] px-2 py-1 rounded text-xs">3,913 vectors</span>
+        </div>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {legalAreas.map((area, index) => (
+            <span key={index} className="bg-[#6B4423] px-2 py-1 rounded text-xs">
+              {area}
+            </span>
+          ))}
+        </div>
       </div>
+      
+      {/* Main chat area */}
+      <main className="flex-1 overflow-y-auto p-4 chat-scrollbar">
+        {messages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-[#F5F5DC]/70">
+            <div className="text-6xl mb-4">⚖️</div>
+            <div className="text-xl font-semibold mb-2">Welcome to Pocket Counsel</div>
+            <div className="text-center max-w-md">
+              Your AI-powered legal assistant for Zambian law. Ask me anything about business law, employment, property, criminal law, family law, and more.
+            </div>
+            <div className="mt-6 text-sm text-[#F5F5DC]/50">
+              Try: "What are the minimum wage requirements in Zambia?"
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {messages.map((message) => (
+              <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-3xl rounded-lg p-4 ${
+                  message.type === 'user' 
+                    ? 'bg-[#6B4423] text-[#F5F5DC]' 
+                    : 'bg-[#8B7355] text-[#F5F5DC]'
+                }`}>
+                  <div className="flex items-start space-x-2">
+                    <div className="text-2xl">
+                      {message.type === 'user' ? '👤' : '⚖️'}
+                    </div>
+                    <div className="flex-1">
+                      <div className="whitespace-pre-wrap">{message.content}</div>
+                      {message.sources && message.sources.length > 0 && (
+                        <div className="mt-3 pt-3 border-t border-[#F5F5DC]/20">
+                          <div className="text-xs font-semibold mb-2">📄 Sources:</div>
+                          <div className="space-y-2">
+                            {message.sources.map((source, index) => (
+                              <div key={index} className="bg-[#6B4423]/50 p-2 rounded text-xs">
+                                <div className="font-medium">{source.title}</div>
+                                <div className="text-[#F5F5DC]/80">{source.content}</div>
+                                <div className="text-[#F5F5DC]/60 mt-1">
+                                  Relevance: {source.relevance} | Distance: {source.distance}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      <div className="text-xs text-[#F5F5DC]/50 mt-2">
+                        {formatTimestamp(message.timestamp)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-[#8B7355] text-[#F5F5DC] rounded-lg p-4">
+                  <div className="flex items-center space-x-2">
+                    <div className="text-2xl">⚖️</div>
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-[#F5F5DC] rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-[#F5F5DC] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-[#F5F5DC] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
+                    <span className="text-sm">Analyzing legal documents...</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+        )}
+      </main>
 
-      {/* Input Form */}
-      <div className="bg-[#4A3428] px-6 py-4 border-t border-[#6B4423]">
-        <form onSubmit={handleSubmit} className="flex space-x-4">
-          <input
-            type="text"
+      {/* Input area */}
+      <div className="bg-[#4A3428] p-4">
+        <form onSubmit={handleSubmit} className="flex items-center space-x-3">
+          <input 
+            type="text" 
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Ask me about Zambian law..."
-            className="flex-1 px-4 py-3 bg-[#6B4423] text-[#F5F5DC] placeholder-[#CD853F] rounded-lg border border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#D2B48C] focus:border-transparent"
+            placeholder="Ask me about Zambian law..." 
+            className="flex-1 p-3 rounded-lg bg-[#5C4033] text-[#F5F5DC] placeholder-[#F5F5DC]/50 border border-[#8B7355] focus:outline-none focus:border-[#6B4423] focus:ring-2 focus:ring-[#6B4423]/20"
             disabled={isLoading}
           />
-          <button
-            type="submit"
-            disabled={!inputValue.trim() || isLoading}
-            className="px-6 py-3 bg-[#8B7355] text-[#F5F5DC] font-medium rounded-lg hover:bg-[#6B4423] focus:outline-none focus:ring-2 focus:ring-[#D2B48C] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          <button 
+            type="submit" 
+            disabled={isLoading || !inputValue.trim()}
+            className="btn-primary px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send
+            {isLoading ? 'Sending...' : 'Send'}
           </button>
         </form>
+        <div className="text-xs text-[#F5F5DC]/50 mt-2 text-center">
+          Your queries are processed using Vertex AI Vector Search and Gemini AI
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default ChatInterface;
