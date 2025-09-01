@@ -31,18 +31,32 @@ const cors = (req: any, res: any, next: () => void) => {
   next();
 };
 
-// Enhanced Query Transformation Function
+// Enhanced Query Transformation Function with Legal-Specific Keywords
 const transformQuery = async (query: string, geminiModel: any): Promise<string[]> => {
   try {
-    const transformationPrompt = `You are a legal research expert. Transform the user's query into 3-5 specific, searchable sub-queries that would help find relevant legal information.
+    // Legal document type keywords for better sub-query generation
+    const legalKeywords = {
+      employment: ['Employment Code Act', 'workers', 'employee', 'employer', 'leave', 'wages', 'working hours', 'termination', 'contract'],
+      business: ['Companies Act', 'business registration', 'PACRA', 'company', 'business name', 'registration', 'corporate'],
+      property: ['Lands and Deeds Registry Act', 'land registration', 'property ownership', 'title deed', 'real estate'],
+      criminal: ['Criminal Procedure Code Act', 'Penal Code Act', 'arrest', 'bail', 'trial', 'criminal procedure'],
+      family: ['Children\'s Code', 'Matrimonial Causes Act', 'marriage', 'divorce', 'custody', 'family law'],
+      financial: ['Banking and Financial Services Act', 'banking', 'financial services', 'regulations'],
+      constitutional: ['Constitution of Zambia', 'constitutional rights', 'fundamental rights', 'amendment']
+    };
+
+    const transformationPrompt = `You are a legal research expert specializing in Zambian law. Transform the user's query into 3-5 specific, searchable sub-queries that would help find relevant legal information.
 
 USER QUERY: "${query}"
 
 Generate specific sub-queries that:
-1. Use legal terminology and specific legal concepts
+1. Use legal terminology and specific legal concepts from Zambian law
 2. Include different aspects of the main query
 3. Are specific enough to find relevant legal documents
 4. Cover related legal areas that might contain relevant information
+5. Incorporate relevant legal act names and specific legal terms
+
+IMPORTANT: Focus on Zambian legal acts and terminology.
 
 Format your response as a simple list, one query per line, without numbering or additional text.
 
@@ -109,14 +123,14 @@ const performVectorSearch = async (
     console.log(`🔍 Using PUBLIC endpoint domain: ${publicDomain}`);
     console.log(`🔍 Full API URL: ${apiUrl}`);
 
-    // Create standard findNeighbors request (hybrid search is handled by the endpoint)
+    // Enhanced search request with higher neighbor count for better filtering
     const searchRequest = {
       deployedIndexId: deployedIndexId,
       queries: [{
         datapoint: {
           featureVector: embedding, // Dense embedding (768 dimensions)
         },
-        neighborCount: 8,
+        neighborCount: 15, // Increased from 8 to 15 for better candidate selection
       }],
     };
 
@@ -160,8 +174,18 @@ const performVectorSearch = async (
     
     const neighbors = searchResult.nearestNeighbors?.[0]?.neighbors || [];
     
+    // Enhanced post-retrieval filtering: Sort by relevance and take top 8
+    const sortedNeighbors = neighbors.sort((a: any, b: any) => {
+      const scoreA = a.distance ? (1 - a.distance) : 0;
+      const scoreB = b.distance ? (1 - b.distance) : 0;
+      return scoreB - scoreA; // Higher scores first
+    });
+    
+    // Take top 8 results after filtering
+    const topNeighbors = sortedNeighbors.slice(0, 8);
+    
     // Transform results to match expected format
-    const transformedResults = neighbors.map((neighbor: any) => ({
+    const transformedResults = topNeighbors.map((neighbor: any) => ({
       datapoint: {
         datapointId: neighbor.datapoint?.datapointId || `result_${Date.now()}`,
         featureVector: neighbor.datapoint?.featureVector || null,
@@ -172,7 +196,7 @@ const performVectorSearch = async (
       score: neighbor.distance ? (1 - neighbor.distance) : 0
     }));
     
-    console.log(`✅ Hybrid search found ${transformedResults.length} results`);
+    console.log(`✅ Hybrid search found ${transformedResults.length} top-quality results from ${neighbors.length} candidates`);
     return transformedResults;
 
   } catch (error: any) {
@@ -480,7 +504,7 @@ Search Method: ${searchType}`;
         context = 'No relevant legal documents found for this query.';
       }
 
-      // Enhanced conversational prompt
+      // Enhanced conversational prompt for legal assistance
       const enhancedPrompt = `You are a friendly, knowledgeable legal assistant specializing in Zambian law. Your goal is to help users understand legal concepts in simple, conversational terms.
 
 IMPORTANT INSTRUCTIONS:
@@ -491,6 +515,8 @@ IMPORTANT INSTRUCTIONS:
 5. **Avoid Generic Responses**: Never say "I am unable to provide specific information" - instead, explain what you found and suggest next steps
 6. **Legal Accuracy**: Base your answer on the provided documents, but explain concepts in accessible terms
 7. **Zambian Focus**: Emphasize that this is about Zambian law specifically
+8. **Legal Act References**: When possible, reference specific Zambian legal acts (e.g., "Employment Code Act No. 3 of 2019")
+9. **Practical Guidance**: Provide practical next steps and who to consult for specific legal advice
 
 USER QUESTION: ${query}
 
@@ -503,6 +529,7 @@ Please provide a helpful, conversational answer that:
 - If the documents don't directly answer the question, explain what they DO cover and why that might be helpful
 - Suggests what type of legal professional they might consult for more specific advice
 - Maintains a friendly, helpful tone throughout
+- References specific Zambian legal acts when relevant
 
 ANSWER:`;
 
