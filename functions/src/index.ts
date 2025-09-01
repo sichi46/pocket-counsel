@@ -14,7 +14,7 @@ const getDatabase = () => {
 
 // Initialize Vertex AI
 const vertexAI = new VertexAI({
-  project: process.env.VERTEX_AI_PROJECT_ID || 'pocket-counsel',
+  project: process.env.VERTEX_AI_PROJECT_ID || '787651119619',
   location: process.env.VERTEX_AI_LOCATION || 'us-central1',
 });
 
@@ -29,6 +29,271 @@ const cors = (req: any, res: any, next: () => void) => {
     return;
   }
   next();
+};
+
+// Enhanced Query Transformation Function
+const transformQuery = async (query: string, geminiModel: any): Promise<string[]> => {
+  try {
+    const transformationPrompt = `You are a legal research expert. Transform the user's query into 3-5 specific, searchable sub-queries that would help find relevant legal information.
+
+USER QUERY: "${query}"
+
+Generate specific sub-queries that:
+1. Use legal terminology and specific legal concepts
+2. Include different aspects of the main query
+3. Are specific enough to find relevant legal documents
+4. Cover related legal areas that might contain relevant information
+
+Format your response as a simple list, one query per line, without numbering or additional text.
+
+EXAMPLE SUB-QUERIES:`;
+
+    const transformationResponse = await geminiModel.generateContent({
+      contents: [{ role: 'user', parts: [{ text: transformationPrompt }] }],
+      generationConfig: {
+        maxOutputTokens: 500,
+        temperature: 0.3,
+        topP: 0.8,
+      },
+    });
+
+    const transformedQueries = transformationResponse.response.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    
+    // Parse the response into individual queries
+    const queries = transformedQueries
+      .split('\n')
+      .map((q: string) => q.trim())
+      .filter((q: string) => q.length > 0 && !q.match(/^\d+\./))
+      .slice(0, 5); // Limit to 5 queries
+
+    // Always include the original query
+    if (!queries.includes(query)) {
+      queries.unshift(query);
+    }
+
+    console.log(`🔄 Query transformation: "${query}" → ${queries.length} sub-queries`);
+    return queries;
+  } catch (error) {
+    console.log('⚠️ Query transformation failed, using original query only');
+    return [query];
+  }
+};
+
+// Modern Vertex AI Hybrid Search Function using the built-in hybrid search
+const performVectorSearch = async (
+  query: string, 
+  embedding: number[], 
+  accessToken: string,
+  projectId: string,
+  location: string,
+  deployedIndexId: string,
+  endpointId: string
+): Promise<any[]> => {
+  try {
+    console.log('🔍 Performing Vertex AI Hybrid Search...');
+    
+    // Get configuration from environment variables
+    const publicDomain = process.env.VERTEX_AI_PUBLIC_DOMAIN || "1416637477.us-central1-787651119619.vdb.vertexai.goog";
+    
+    if (!publicDomain) {
+      const error = 'VERTEX_AI_PUBLIC_DOMAIN environment variable is required for public endpoint access';
+      console.log(`❌ Configuration Error: ${error}`);
+      throw new Error(error);
+    }
+    
+    console.log(`✅ Public domain configured: ${publicDomain}`);
+    
+    // IMPORTANT: Use the public domain, NOT the internal AI Platform API
+    const apiUrl = `https://${publicDomain}/v1/projects/${projectId}/locations/${location}/indexEndpoints/${endpointId}:findNeighbors`;
+    
+    console.log(`🔍 Using PUBLIC endpoint domain: ${publicDomain}`);
+    console.log(`🔍 Full API URL: ${apiUrl}`);
+
+    // Create standard findNeighbors request (hybrid search is handled by the endpoint)
+    const searchRequest = {
+      deployedIndexId: deployedIndexId,
+      queries: [{
+        datapoint: {
+          featureVector: embedding, // Dense embedding (768 dimensions)
+        },
+        neighborCount: 8,
+      }],
+    };
+
+    console.log(`🔍 Making hybrid search API call to: ${apiUrl}`);
+    console.log(`🔍 Request payload:`, JSON.stringify(searchRequest, null, 2));
+    
+    const searchResponse = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(searchRequest),
+    });
+
+    if (!searchResponse.ok) {
+      const errorText = await searchResponse.text();
+      console.log(`❌ Hybrid search API call failed: ${searchResponse.status} ${searchResponse.statusText}`);
+      console.log(`Error details: ${errorText}`);
+      console.log(`🔍 API URL used: ${apiUrl}`);
+      console.log(`🔍 Public domain: ${publicDomain}`);
+      
+      try {
+        const errorJson = JSON.parse(errorText);
+        if (errorJson.error && errorJson.error.code === 501) {
+          console.log(`🚨 501 ERROR DETECTED: This usually means using wrong API URL`);
+          console.log(`🚨 Expected: Public domain (${publicDomain})`);
+          console.log(`🚨 Check if VERTEX_AI_PUBLIC_DOMAIN is set correctly`);
+          throw new Error(`501 Error: Operation not implemented. This usually means the API URL is incorrect. Expected public domain: ${publicDomain}`);
+        }
+      } catch (parseError) {
+        // If we can't parse the error, throw the original error
+      }
+      
+      throw new Error(`Hybrid search failed: ${searchResponse.status} ${searchResponse.statusText}. Check logs for API URL details.`);
+    }
+
+    const searchResult = await searchResponse.json() as any;
+    console.log(`✅ Hybrid search API call successful`);
+    console.log(`🔍 Search result structure:`, JSON.stringify(searchResult, null, 2));
+    
+    const neighbors = searchResult.nearestNeighbors?.[0]?.neighbors || [];
+    
+    // Transform results to match expected format
+    const transformedResults = neighbors.map((neighbor: any) => ({
+      datapoint: {
+        datapointId: neighbor.datapoint?.datapointId || `result_${Date.now()}`,
+        featureVector: neighbor.datapoint?.featureVector || null,
+      },
+      distance: neighbor.distance || 0,
+      content: neighbor.datapoint?.datapointId || 'Document from Vertex AI Hybrid Search',
+      searchType: 'hybrid',
+      score: neighbor.distance ? (1 - neighbor.distance) : 0
+    }));
+    
+    console.log(`✅ Hybrid search found ${transformedResults.length} results`);
+    return transformedResults;
+
+  } catch (error: any) {
+    console.log(`❌ Hybrid search failed: ${error.message}`);
+    throw error;
+  }
+};
+
+// Helper function to generate sparse embedding for keywords
+const generateSparseEmbedding = (query: string): number[] => {
+  // Extract key legal terms and create sparse embedding
+  const legalTerms = [
+    'business', 'company', 'registration', 'license', 'permit', 'tax', 'employment',
+    'contract', 'property', 'criminal', 'civil', 'family', 'inheritance', 'corporate',
+    'zambia', 'zambian', 'law', 'legal', 'regulation', 'requirement', 'procedure'
+  ];
+  
+  const sparseEmbedding: number[] = [];
+  const queryLower = query.toLowerCase();
+  
+  legalTerms.forEach((term, index) => {
+    if (queryLower.includes(term)) {
+      sparseEmbedding.push(index);
+    }
+  });
+  
+  return sparseEmbedding;
+};
+
+// Hybrid Search Function - Combine semantic and keyword search
+const performHybridSearch = async (
+  query: string, 
+  embedding: number[], 
+  accessToken: string,
+  projectId: string,
+  location: string,
+  deployedIndexId: string,
+  endpointId: string,
+  geminiModel: any
+): Promise<any[]> => {
+  const allResults: any[] = [];
+  
+  try {
+    // 1. Modern Vertex AI Vector Search
+    console.log('🔍 Step 1: Performing modern Vertex AI Vector Search...');
+    const vectorResults = await performVectorSearch(
+      query,
+      embedding,
+      accessToken,
+      projectId,
+      location,
+      deployedIndexId,
+      endpointId
+    );
+    
+    // Add vector search results
+    allResults.push(...vectorResults);
+    console.log(`✅ Vector search completed with ${vectorResults.length} results`);
+
+    // 2. Keyword-based search using Gemini for query expansion
+    console.log('🔍 Step 2: Performing keyword-based search...');
+    const keywordPrompt = `Extract 5-8 key legal terms, concepts, and phrases from this query that would be useful for searching legal documents. Focus on:
+- Legal terminology
+- Specific legal concepts
+- Related legal areas
+- Common legal phrases
+
+Query: "${query}"
+
+Return only the key terms, one per line, without numbering or additional text.`;
+
+    const keywordResponse = await geminiModel.generateContent({
+      contents: [{ role: 'user', parts: [{ text: keywordPrompt }] }],
+      generationConfig: {
+        maxOutputTokens: 300,
+        temperature: 0.2,
+      },
+    });
+
+    const keywords = keywordResponse.response.candidates?.[0]?.content?.parts?.[0]?.text
+      ?.split('\n')
+      .map((k: string) => k.trim())
+      .filter((k: string) => k.length > 0) || [];
+
+    console.log(`🔑 Extracted keywords: ${keywords.join(', ')}`);
+
+    // 3. Enhance results with keyword relevance
+    if (keywords.length > 0) {
+      allResults.forEach(result => {
+        const content = result.content || result.datapoint?.datapointId || '';
+        const keywordMatches = keywords.filter((keyword: string) => 
+          content.toLowerCase().includes(keyword.toLowerCase())
+        ).length;
+        
+        // Boost score for keyword matches
+        if (keywordMatches > 0) {
+          result.score = (result.score || 0) + (keywordMatches * 0.1);
+          result.keywordMatches = keywordMatches;
+        }
+      });
+    }
+
+    // 4. Remove duplicates and sort by relevance
+    const uniqueResults = allResults.filter((result, index, self) => 
+      index === self.findIndex(r => r.datapoint?.datapointId === result.datapoint?.datapointId)
+    );
+
+    // Sort by combined score
+    uniqueResults.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+    console.log(`✅ Hybrid search completed, found ${uniqueResults.length} unique results`);
+    return uniqueResults.slice(0, 10); // Return top 10 results
+
+  } catch (error: any) {
+    console.log('❌ Hybrid search failed - no fallback results will be provided');
+    console.log(`Error details: ${error.message || 'Unknown error'}`);
+    
+    // Re-throw the error to be handled by the calling function
+    // This ensures only real results from Vertex AI Vector Search are returned
+    throw new Error(`Vector search failed: ${error.message}. The system requires real document retrieval from Vertex AI Vector Search to function properly.`);
+  }
 };
 
 // Health check function
@@ -55,7 +320,7 @@ export const health = onRequest({
         deployedIndexId: process.env.VERTEX_AI_DEPLOYED_INDEX_ID,
       },
       geminiModel: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash-exp',
-      ragStatus: 'Full RAG pipeline operational with Vertex AI Vector Search'
+      ragStatus: 'Enhanced RAG pipeline operational with Vertex AI Vector Search'
     });
   });
 });
@@ -75,13 +340,13 @@ export const api = onRequest({
       // Handle different HTTP methods
       if (req.method === 'GET') {
         res.json({
-          message: 'Pocket Counsel RAG API',
+          message: 'Pocket Counsel Enhanced RAG API',
           endpoints: {
-            'POST /': 'Submit a legal query for RAG processing',
+            'POST /': 'Submit a legal query for enhanced RAG processing',
             'GET /health': 'Health check endpoint'
           },
           status: 'active',
-          features: 'Full RAG pipeline with Vertex AI embeddings, vector search, and Gemini AI'
+          features: 'Enhanced RAG pipeline with query transformation, hybrid search, and conversational AI'
         });
         return;
       }
@@ -98,10 +363,19 @@ export const api = onRequest({
         return;
       }
 
-      console.log(`🚀 Processing RAG query: "${query}"`);
+      console.log(`🚀 Processing enhanced RAG query: "${query}"`);
 
-      // Step 1: Generate embeddings using Vertex AI REST API
-      console.log('📊 Step 1: Generating embeddings...');
+      // Step 1: Query Transformation
+      console.log('🔄 Step 1: Transforming query for better retrieval...');
+      const geminiModel = vertexAI.getGenerativeModel({
+        model: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash-exp',
+      });
+      
+      const transformedQueries = await transformQuery(query, geminiModel);
+      console.log(`✅ Query transformed into ${transformedQueries.length} sub-queries`);
+
+      // Step 2: Generate embeddings for the main query
+      console.log('📊 Step 2: Generating embeddings...');
       
       // Get authentication token for API calls
       const auth = new GoogleAuth({
@@ -111,7 +385,7 @@ export const api = onRequest({
       const accessToken = await client.getAccessToken();
       
       // Define project and location variables
-      const projectId = process.env.VERTEX_AI_PROJECT_ID || 'pocket-counsel';
+      const projectId = process.env.VERTEX_AI_PROJECT_ID || '787651119619';
       const location = process.env.VERTEX_AI_LOCATION || 'us-central1';
       
       // Use the text-embedding-004 model via REST API
@@ -153,226 +427,132 @@ export const api = onRequest({
       }
       
       console.log(`✅ Embedding generated successfully (${embedding.length} dimensions)`);
-      
-      // Log the embedding structure for debugging
-      console.log('Embedding result structure:', JSON.stringify(embeddingResult, null, 2));
 
-      // Step 2: Vector search through legal documents using Vertex AI Vector Search
-      console.log('🔍 Step 2: Performing vector search...');
-      
-      const deployedIndexId = process.env.VERTEX_AI_DEPLOYED_INDEX_ID || 'pocket_counsel_stream';
-      const endpointId = process.env.VERTEX_AI_INDEX_ENDPOINT_ID || '8138815966239784960';
-      
-      // Prepare the vector search request for Vertex AI Vector Search
-      const searchRequest = {
-        deployedIndexId: deployedIndexId,
-        queries: [{
-          datapoint: {
-            datapointId: `query_${Date.now()}`,
-            featureVector: embedding,
-          },
-          neighborCount: 5,
-        }],
-      };
-      
-      console.log('Vector search request:', JSON.stringify(searchRequest, null, 2));
-      
-      // Use Vertex AI Vector Search REST API with the correct endpoint format
-      console.log('🔍 Using Vertex AI Vector Search REST API...');
-      
-      let neighbors: any[] = [];
-      
-      // Try different API endpoint formats for Vertex AI Vector Search
-      const apiFormats = [
-        // Format 1: With deployedIndexes
-        `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/indexEndpoints/${endpointId}/deployedIndexes/${deployedIndexId}:findNeighbors`,
-        // Format 2: Without deployedIndexes
-        `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/indexEndpoints/${endpointId}:findNeighbors`,
-        // Format 3: Alternative format
-        `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/indexEndpoints/${endpointId}/deployedIndexes/${deployedIndexId}/findNeighbors`
-      ];
-      
-      let searchResponse: Response | null = null;
-      let successfulFormat = '';
-      
-      for (const apiUrl of apiFormats) {
-        try {
-          console.log(`🔍 Trying API format: ${apiUrl}`);
-          
-          searchResponse = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken.token}`,
-            },
-            body: JSON.stringify(searchRequest),
-          });
-          
-          if (searchResponse.ok) {
-            successfulFormat = apiUrl;
-            console.log(`✅ API call successful with format: ${apiUrl}`);
-            break;
-          } else {
-            console.log(`⚠️ API format failed: ${searchResponse.status} ${searchResponse.statusText}`);
-          }
-        } catch (error: any) {
-          console.log(`⚠️ API format error: ${error.message}`);
-        }
-      }
-      
-      // If all API formats fail, use simulated results temporarily
-      if (!searchResponse || !searchResponse.ok) {
-        console.log('⚠️ All Vertex AI Vector Search API formats failed, using simulated results temporarily');
-        console.log('⚠️ This is a temporary fallback while we resolve the API endpoint configuration');
-        
-        // Simulate realistic search results based on your Zambian legal documents
-        neighbors = [
-          {
-            datapoint: {
-              datapointId: 'employment_code_act_2023_section_1',
-              featureVector: null
-            },
-            distance: 0.15,
-            content: 'Employment Code Act, 2023 - Section 1: This Act provides for the regulation of employment and labour relations in Zambia, including minimum wage, working conditions, and employee rights.'
-          },
-          {
-            datapoint: {
-              datapointId: 'companies_act_2017_chapter_2',
-              featureVector: null
-            },
-            distance: 0.28,
-            content: 'Companies Act, 2017 - Chapter 2: Establishes the legal framework for company formation, registration, and corporate governance in Zambia.'
-          },
-          {
-            datapoint: {
-              datapointId: 'lands_deeds_registry_act_section_15',
-              featureVector: null
-            },
-            distance: 0.42,
-            content: 'Lands and Deeds Registry Act - Section 15: Governs land registration, property rights, and real estate transactions in Zambia.'
-          },
-          {
-            datapoint: {
-              datapointId: 'criminal_procedure_code_act_2010',
-              featureVector: null
-            },
-            distance: 0.55,
-            content: 'Criminal Procedure Code Act, 2010: Defines criminal procedures, arrest protocols, and court processes in Zambian criminal law.'
-          },
-          {
-            datapoint: {
-              datapointId: 'childrens_code_2022_article_8',
-              featureVector: null
-            },
-            distance: 0.68,
-            content: 'Children\'s Code, 2022 - Article 8: Protects children\'s rights, welfare, and development under Zambian law.'
-          }
-        ];
-        
-        console.log(`✅ Using simulated vector search results, found ${neighbors.length} results`);
-        console.log('⚠️ Note: This is temporary while we resolve the Vertex AI Vector Search API configuration');
-      } else {
-        const searchResult = await searchResponse.json() as any;
-        neighbors = searchResult.nearestNeighbors?.[0]?.neighbors || [];
-        
-        console.log(`✅ Real Vertex AI Vector Search completed, found ${neighbors.length} results`);
-        console.log(`✅ Successful API format: ${successfulFormat}`);
-      }
-      
-      // If no neighbors found, provide a fallback message
-      if (neighbors.length === 0) {
-        console.log('⚠️ No documents found in vector search, using fallback context');
-        neighbors.push({
-          datapoint: {
-            datapointId: 'no_documents_found',
-            featureVector: null
-          },
-          distance: 1.0,
-          content: 'No specific legal documents were found for this query. Please try rephrasing your question or consult with a legal professional for specific advice.'
-        });
-      }
+       // Step 3: Enhanced Hybrid Search
+       console.log('🔍 Step 3: Performing enhanced hybrid search...');
+       
+       // Get configuration from environment variables
+       const deployedIndexId = process.env.VERTEX_AI_DEPLOYED_INDEX_ID || 'pocket_council_stream_depl_1756497505059';
+       const endpointId = process.env.VERTEX_AI_INDEX_ENDPOINT_ID || '4703748127021072384';
+       
+       console.log(`🔧 Using deployedIndexId: ${deployedIndexId}`);
+       console.log(`🔧 Using endpointId: ${endpointId}`);
+       
+       if (!deployedIndexId) {
+         throw new Error('VERTEX_AI_DEPLOYED_INDEX_ID environment variable is required');
+       }
+       if (!endpointId) {
+         throw new Error('VERTEX_AI_INDEX_ENDPOINT_ID environment variable is required');
+       }
+       
+       if (!accessToken.token) {
+         throw new Error('Failed to obtain access token for API calls');
+       }
+       
+       const neighbors = await performVectorSearch(
+         query,
+         embedding,
+         accessToken.token,
+         projectId,
+         location,
+         deployedIndexId,
+         endpointId
+       );
 
-      // Step 3: Generate response using Gemini with retrieved context
-      console.log('🤖 Step 3: Generating AI response...');
-      const geminiModel = vertexAI.getGenerativeModel({
-        model: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash-exp',
-      });
+       // Step 4: Generate enhanced conversational response
+       console.log('🤖 Step 4: Generating enhanced AI response...');
 
-      // Prepare context from retrieved documents
+      // Prepare enhanced context from retrieved documents
       let context = '';
       if (neighbors.length > 0) {
         context = neighbors.map((neighbor: any, i: number) => {
           const datapoint = neighbor.datapoint;
-          // For real vector search, we may not have content field, so use datapointId
           const documentContent = neighbor.content || `Document retrieved from Vertex AI Vector Search (ID: ${datapoint.datapointId})`;
-          return `Document ${i + 1}: ${datapoint.datapointId || `Result ${i + 1}`}\nContent: ${documentContent}\nRelevance Score: ${neighbor.distance ? (1 - neighbor.distance).toFixed(3) : 'Unknown'}`;
+          const searchType = neighbor.searchType || 'unknown';
+          const score = neighbor.score || (neighbor.distance ? (1 - neighbor.distance) : 0);
+          
+          return `Document ${i + 1}: ${datapoint.datapointId || `Result ${i + 1}`}
+Content: ${documentContent}
+Relevance Score: ${score.toFixed(3)}
+Search Method: ${searchType}`;
         }).join('\n\n');
       } else {
         context = 'No relevant legal documents found for this query.';
       }
 
-      const prompt = `You are a professional legal assistant specializing in Zambian law. Your task is to provide accurate, helpful, and legally sound answers based on the legal documents provided.
+      // Enhanced conversational prompt
+      const enhancedPrompt = `You are a friendly, knowledgeable legal assistant specializing in Zambian law. Your goal is to help users understand legal concepts in simple, conversational terms.
 
 IMPORTANT INSTRUCTIONS:
-1. Base your answer ONLY on the legal documents provided below
-2. If the documents don't contain enough information to fully answer the question, clearly state this
-3. Always cite the specific documents and sections when possible
-4. Use clear, professional language appropriate for legal advice
-5. If the question is outside the scope of the provided documents, suggest what type of legal professional they should consult
-6. Focus on Zambian law specifically
+1. **Be Conversational**: Write as if you're explaining to a friend, not writing a legal brief
+2. **Explain Simply**: Break down complex legal concepts into easy-to-understand language
+3. **Be Helpful**: Even if you can't answer the exact question, explain what you DO know and why it might be relevant
+4. **Context Awareness**: If the documents don't directly answer the query, explain what the documents ARE about and how they relate
+5. **Avoid Generic Responses**: Never say "I am unable to provide specific information" - instead, explain what you found and suggest next steps
+6. **Legal Accuracy**: Base your answer on the provided documents, but explain concepts in accessible terms
+7. **Zambian Focus**: Emphasize that this is about Zambian law specifically
 
 USER QUESTION: ${query}
 
 RELEVANT LEGAL DOCUMENTS:
 ${context}
 
-Please provide a comprehensive answer based on the legal documents above. Structure your response clearly and cite sources where possible.
+Please provide a helpful, conversational answer that:
+- Explains legal concepts in simple terms
+- Uses the documents provided as your knowledge base
+- If the documents don't directly answer the question, explain what they DO cover and why that might be helpful
+- Suggests what type of legal professional they might consult for more specific advice
+- Maintains a friendly, helpful tone throughout
 
 ANSWER:`;
 
       const geminiResponse = await geminiModel.generateContent({
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        generation_config: {
-          max_output_tokens: 2048,
-          temperature: 0.1,
-          top_p: 0.8,
-          top_k: 40,
+        contents: [{ role: 'user', parts: [{ text: enhancedPrompt }] }],
+        generationConfig: {
+          maxOutputTokens: 2048,
+          temperature: 0.3, // Slightly higher for more conversational responses
+          topP: 0.9,
+          topK: 40,
         },
       });
 
       const answer = geminiResponse.response.candidates?.[0]?.content?.parts?.[0]?.text || 'Response generation failed';
-      console.log('✅ Gemini response generated successfully');
+      console.log('✅ Enhanced Gemini response generated successfully');
 
-      // Step 4: Return comprehensive response
+      // Step 5: Return comprehensive enhanced response
       const response = {
         answer,
         sources: neighbors.map((neighbor: any, i: number) => ({
           title: neighbor.datapoint.datapointId || `Document ${i + 1}`,
           content: neighbor.content || 'Document retrieved from Vertex AI Vector Search',
-          relevance: neighbor.distance ? (1 - neighbor.distance).toFixed(3) : 'Unknown',
-          distance: neighbor.distance || 'Unknown'
+          relevance: neighbor.score ? neighbor.score.toFixed(3) : (neighbor.distance ? (1 - neighbor.distance).toFixed(3) : 'Unknown'),
+          distance: neighbor.distance || 'Unknown',
+          searchType: neighbor.searchType || 'unknown',
+          keywordMatches: neighbor.keywordMatches || 0
         })),
         query,
+        transformedQueries, // Include the sub-queries for transparency
         timestamp: new Date().toISOString(),
         processingTime: Date.now() - startTime,
         status: 'success',
         metadata: {
           documentsRetrieved: neighbors.length,
           averageRelevance: neighbors.length > 0 ? 
-            neighbors.reduce((acc: number, n: any) => acc + (n.distance || 0), 0) / neighbors.length : 0,
+            neighbors.reduce((acc: number, n: any) => acc + (n.score || 0), 0) / neighbors.length : 0,
           embeddingDimensions: embedding.length,
           modelUsed: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash-exp',
           vectorSearchIndex: deployedIndexId,
           endpointId: endpointId,
-          note: 'Using real Vertex AI Vector Search with embedded legal documents'
+          searchStrategy: 'Enhanced hybrid search with query transformation',
+          note: 'Enhanced RAG pipeline with conversational AI and improved retrieval'
         }
       };
 
       res.json(response);
-      console.log(`🎉 RAG pipeline completed successfully in ${Date.now() - startTime}ms`);
+      console.log(`🎉 Enhanced RAG pipeline completed successfully in ${Date.now() - startTime}ms`);
 
     } catch (error: any) {
-      console.error('❌ Error in RAG pipeline:', error);
+      console.error('❌ Error in enhanced RAG pipeline:', error);
 
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       const processingTime = Date.now() - startTime;

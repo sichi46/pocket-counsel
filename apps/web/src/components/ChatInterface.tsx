@@ -15,7 +15,20 @@ interface Message {
     content: string;
     relevance: string;
     distance: string;
+    searchType?: string;
+    keywordMatches?: number;
   }>;
+  metadata?: {
+    documentsRetrieved: number;
+    averageRelevance: number;
+    embeddingDimensions: number;
+    modelUsed: string;
+    vectorSearchIndex: string;
+    endpointId: string;
+    note: string;
+    processingTime: number;
+  };
+  error?: string;
 }
 
 interface APIResponse {
@@ -25,6 +38,8 @@ interface APIResponse {
     content: string;
     relevance: string;
     distance: string;
+    searchType?: string;
+    keywordMatches?: number;
   }>;
   query: string;
   timestamp: string;
@@ -38,6 +53,7 @@ interface APIResponse {
     vectorSearchIndex: string;
     endpointId: string;
     note: string;
+    processingTime: number;
   };
 }
 
@@ -56,7 +72,7 @@ function ChatInterface() {
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const API_BASE_URL = 'https://us-central1-pocket-counsel.cloudfunctions.net/api';
+  const API_BASE_URL = 'https://api-6otymacelq-uc.a.run.app';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -91,7 +107,8 @@ function ChatInterface() {
       });
 
       if (!response.ok) {
-        throw new Error(`API request failed: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`API request failed: ${response.status} - ${errorData.message || response.statusText}`);
       }
 
       const data: APIResponse = await response.json();
@@ -102,6 +119,10 @@ function ChatInterface() {
         content: data.answer,
         timestamp: new Date(),
         sources: data.sources,
+        metadata: {
+          ...data.metadata,
+          processingTime: data.processingTime,
+        },
       };
 
       setMessages(prev => [...prev, assistantMessage]);
@@ -110,8 +131,9 @@ function ChatInterface() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: 'I apologize, but I encountered an error while processing your request. Please try again or contact support if the issue persists.',
+        content: `I apologize, but I encountered an error while processing your request: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again or contact support if the issue persists.`,
         timestamp: new Date(),
+        error: error instanceof Error ? error.message : 'Unknown error',
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -121,6 +143,10 @@ function ChatInterface() {
 
   const formatTimestamp = (timestamp: Date) => {
     return timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  const formatProcessingTime = (time: number) => {
+    return `${(time / 1000).toFixed(1)}s`;
   };
 
   return (
@@ -168,7 +194,7 @@ function ChatInterface() {
           <div className="space-y-4">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-3xl rounded-lg p-4 ${
+                <div className={`max-w-4xl rounded-lg p-4 ${
                   message.type === 'user' 
                     ? 'bg-[#6B4423] text-[#F5F5DC]' 
                     : 'bg-[#8B7355] text-[#F5F5DC]'
@@ -179,22 +205,58 @@ function ChatInterface() {
                     </div>
                     <div className="flex-1">
                       <div className="whitespace-pre-wrap">{message.content}</div>
+                      
+                      {/* Enhanced Sources Display */}
                       {message.sources && message.sources.length > 0 && (
                         <div className="mt-3 pt-3 border-t border-[#F5F5DC]/20">
-                          <div className="text-xs font-semibold mb-2">📄 Sources:</div>
+                          <div className="text-xs font-semibold mb-2">📄 Sources ({message.sources.length} documents):</div>
                           <div className="space-y-2">
                             {message.sources.map((source, index) => (
                               <div key={index} className="bg-[#6B4423]/50 p-2 rounded text-xs">
                                 <div className="font-medium">{source.title}</div>
                                 <div className="text-[#F5F5DC]/80">{source.content}</div>
-                                <div className="text-[#F5F5DC]/60 mt-1">
-                                  Relevance: {source.relevance} | Distance: {source.distance}
+                                <div className="text-[#F5F5DC]/60 mt-1 flex justify-between">
+                                  <span>Relevance: {source.relevance}</span>
+                                  <span>Distance: {source.distance}</span>
+                                  {source.searchType && <span>Type: {source.searchType}</span>}
+                                  {source.keywordMatches && <span>Keywords: {source.keywordMatches}</span>}
                                 </div>
                               </div>
                             ))}
                           </div>
                         </div>
                       )}
+
+                      {/* Enhanced Metadata Display */}
+                      {message.metadata && (
+                        <div className="mt-3 pt-3 border-t border-[#F5F5DC]/20">
+                          <div className="text-xs font-semibold mb-2">🔧 System Info:</div>
+                          <div className="grid grid-cols-2 gap-2 text-xs text-[#F5F5DC]/70">
+                            <div>Documents: {message.metadata.documentsRetrieved}</div>
+                            <div>Avg Relevance: {message.metadata.averageRelevance.toFixed(3)}</div>
+                            <div>Embeddings: {message.metadata.embeddingDimensions}D</div>
+                            <div>Model: {message.metadata.modelUsed}</div>
+                            <div>Processing: {formatProcessingTime(message.metadata.processingTime)}</div>
+                            <div>Index: {message.metadata.vectorSearchIndex.slice(0, 20)}...</div>
+                          </div>
+                          {message.metadata.note && (
+                            <div className="text-xs text-[#F5F5DC]/60 mt-1 italic">
+                              {message.metadata.note}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Error Display */}
+                      {message.error && (
+                        <div className="mt-3 pt-3 border-t border-red-400/30">
+                          <div className="text-xs font-semibold mb-2 text-red-400">❌ Error Details:</div>
+                          <div className="text-xs text-red-300 bg-red-900/20 p-2 rounded">
+                            {message.error}
+                          </div>
+                        </div>
+                      )}
+
                       <div className="text-xs text-[#F5F5DC]/50 mt-2">
                         {formatTimestamp(message.timestamp)}
                       </div>
@@ -213,7 +275,7 @@ function ChatInterface() {
                       <div className="w-2 h-2 bg-[#F5F5DC] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                       <div className="w-2 h-2 bg-[#F5F5DC] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
-                    <span className="text-sm">Analyzing legal documents...</span>
+                    <span className="text-sm">Analyzing legal documents with Vertex AI...</span>
                   </div>
                 </div>
               </div>
