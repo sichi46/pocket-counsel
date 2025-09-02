@@ -168,7 +168,12 @@ class OptimizedRAGIngestionService:
                 # Upload to GCS with increased timeout for large files
                 storage_client = storage.Client()
                 bucket = storage_client.bucket(bucket_name)
-                blob_name = f"index_data/embeddings_{int(time.time())}.jsonl"
+                
+                # Create a proper directory structure for batch updates
+                timestamp = int(time.time())
+                directory_name = f"batch_updates/batch_{timestamp}"
+                blob_name = f"{directory_name}/embeddings.json"
+                
                 blob = bucket.blob(blob_name)
                 
                 logger.info(f"📤 Uploading JSONL file to GCS: gs://{bucket_name}/{blob_name}")
@@ -181,9 +186,11 @@ class OptimizedRAGIngestionService:
                 # Clean up temporary file
                 os.unlink(temp_path)
                 
-                gcs_uri = f"gs://{bucket_name}/{blob_name}"
-                logger.info(f"✅ Successfully uploaded JSONL file to: {gcs_uri}")
-                return gcs_uri
+                # Return the directory path (not the file path) for batch updates
+                gcs_directory_uri = f"gs://{bucket_name}/{directory_name}"
+                logger.info(f"✅ Successfully uploaded JSONL file to: {gcs_directory_uri}")
+                logger.info(f"   Note: Use the directory path for batch updates: {gcs_directory_uri}")
+                return gcs_directory_uri
                 
         except Exception as e:
             logger.error(f"❌ Failed to create and upload JSONL file: {str(e)}")
@@ -201,9 +208,11 @@ class OptimizedRAGIngestionService:
             # For now, we'll skip the complex batch update and just log success
             # The JSONL file is uploaded and ready for manual processing
             logger.info(f"📋 Batch update approach simplified")
-            logger.info(f"   JSONL file uploaded to: {gcs_uri}")
+            logger.info(f"   JSON file uploaded to directory: {gcs_uri}")
             logger.info(f"   File contains embeddings for all processed documents")
-            logger.info(f"   You can now manually trigger the batch update or use the file directly")
+            logger.info(f"   ✅ IMPORTANT: Use the directory path for batch updates: {gcs_uri}")
+            logger.info(f"   ✅ NOT the file path ending with .json")
+            logger.info(f"   You can now manually trigger the batch update using the directory path")
             
             # Return a dummy operation name for now
             return "manual_batch_update_required"
