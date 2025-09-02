@@ -595,3 +595,115 @@ ANSWER:`;
     }
   });
 });
+
+// Enhanced RAG Pipeline with Python ML Components
+export const enhancedRAGPipeline = onRequest({
+  cors: true,
+  maxInstances: 10,
+}, async (req, res) => {
+  const startTime = Date.now();
+  
+  try {
+    // Parse request
+    const { query, documents = [], top_k = 5, threshold = 0.3 } = req.body;
+    
+    if (!query) {
+      res.status(400).json({
+        error: 'Bad request',
+        message: 'Query is required'
+      });
+      return;
+    }
+    
+    console.log(`🔄 Enhanced RAG Pipeline Request: "${query.substring(0, 100)}..."`);
+    
+    // Call the Python Enhanced RAG Server
+    const enhancedRAGResponse = await fetch('http://localhost:5000/enhanced-rag', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query,
+        documents,
+        top_k,
+        threshold
+      })
+    });
+    
+    if (!enhancedRAGResponse.ok) {
+      throw new Error(`Enhanced RAG server error: ${enhancedRAGResponse.statusText}`);
+    }
+    
+    const enhancedRAGData = await enhancedRAGResponse.json() as any;
+    
+    // Generate final response using Gemini with enhanced prompt
+    const geminiModel = vertexAI.getGenerativeModel({
+      model: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash-exp',
+    });
+    
+    const finalPrompt = `You are a friendly, knowledgeable legal assistant specializing in Zambian law. 
+    
+USER QUESTION: ${query}
+
+ENHANCED CONTEXT FROM DOCUMENTS:
+${enhancedRAGData.enhanced_prompt}
+
+Please provide a helpful, conversational answer that:
+- Explains legal concepts in simple terms
+- Uses the enhanced context provided as your knowledge base
+- If the context doesn't directly answer the question, explain what it DOES cover and why that might be helpful
+- Suggests what type of legal professional they might consult for more specific advice
+- Maintains a friendly, helpful tone throughout
+- References specific Zambian legal acts when relevant
+
+ANSWER:`;
+
+    const geminiResponse = await geminiModel.generateContent({
+      contents: [{ role: 'user', parts: [{ text: finalPrompt }] }],
+      generationConfig: {
+        maxOutputTokens: 2048,
+        temperature: 0.3,
+        topP: 0.9,
+        topK: 40,
+      },
+    });
+
+    const answer = geminiResponse.response.candidates?.[0]?.content?.parts?.[0]?.text || 'Response generation failed';
+    
+    // Prepare comprehensive response
+    const response = {
+      answer,
+      query,
+      enhanced_rag_data: enhancedRAGData,
+      timestamp: new Date().toISOString(),
+      processingTime: Date.now() - startTime,
+      status: 'success',
+      metadata: {
+        note: 'Enhanced RAG pipeline with Python ML components (re-ranking, filtering, context enhancement)',
+        documentsProcessed: enhancedRAGData.documents_processed,
+        metrics: enhancedRAGData.metrics,
+        enhancedPromptLength: enhancedRAGData.enhanced_prompt?.length || 0
+      }
+    };
+    
+    res.json(response);
+    console.log(`🎉 Enhanced RAG Pipeline with ML components completed in ${Date.now() - startTime}ms`);
+    
+  } catch (error: any) {
+    console.error('❌ Enhanced RAG Pipeline error:', error);
+    
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const processingTime = Date.now() - startTime;
+    
+    res.status(500).json({
+      error: 'Internal server error',
+      message: 'Enhanced RAG pipeline failed. Please try again.',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : 'Contact support for details',
+      processingTime,
+      status: 'error',
+      timestamp: new Date().toISOString(),
+      note: 'This endpoint requires the Python Enhanced RAG Server to be running on port 5000'
+    });
+  }
+});

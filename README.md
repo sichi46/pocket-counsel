@@ -77,9 +77,6 @@ pocket-counsel/
 4. **Set up Firebase emulators (optional)**
 
    ```bash
-   # Configure emulators for local development
-   ./scripts/setup-emulators.sh
-
    # Start emulators
    firebase emulators:start
    ```
@@ -110,7 +107,7 @@ pocket-counsel/
 
 - `npm run deploy:dev` - Deploy to staging environment
 - `npm run deploy:prod` - Deploy to production environment
-- `npm run setup:databases` - Set up Firestore databases
+
 
 ### Emulators
 
@@ -119,11 +116,8 @@ pocket-counsel/
 
 ## 📚 Documentation
 
-- [Setup Guide](docs/setup-guide.md) - Complete setup instructions for new contributors
 - [Product Design Document](docs/product-design.md)
 - [Technical Design Document](docs/technical-design.md)
-- [Project Roadmap](docs/to-do.md)
-- [Environment Strategy](docs/environment-strategy.md) - Environment variables and GitHub secrets management
 
 ## 🏛️ Legal Disclaimer
 

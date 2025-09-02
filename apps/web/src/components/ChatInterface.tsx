@@ -61,6 +61,7 @@ function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const [legalAreas] = useState([
     'Business Law: Companies Act, Registration of Business Names Act',
     'Employment Law: Employment Code Act, Workers\' Compensation Act',
@@ -81,6 +82,17 @@ function ChatInterface() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Preload background image
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setBackgroundLoaded(true);
+    img.onerror = () => {
+      console.warn('Background image failed to load, using fallback');
+      setBackgroundLoaded(true); // Still set to true to remove loading state
+    };
+    img.src = logoUrl;
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,9 +162,28 @@ function ChatInterface() {
   };
 
   return (
-    <div className="bg-[#5C4033] h-screen flex flex-col">
+    <div 
+      className={`h-screen flex flex-col relative transition-opacity duration-1000 ${
+        backgroundLoaded ? 'bg-image-container' : 'bg-[#eee9e7]'
+      }`}
+      style={{
+        '--bg-image-url': `url(${logoUrl})`
+      } as React.CSSProperties}
+    >
+      {/* Background overlay for better readability */}
+      <div className="absolute inset-0 bg-overlay"></div>
+      
+      {/* Background loading indicator */}
+      {!backgroundLoaded && (
+        <div className="absolute inset-0 bg-[#eee9e7] flex items-center justify-center">
+          <div className="text-[#6B4423] text-sm">Loading background...</div>
+        </div>
+      )}
+      
+      {/* Content container with relative positioning */}
+      <div className="relative z-10 flex flex-col h-full">
       {/* Header with the new logo and title */}
-      <header className="bg-[#4A3428] text-[#F5F5DC] p-4 flex items-center justify-between">
+      <header className="bg-[#a1745b] text-[#F5F5DC] p-4 flex items-center justify-between">
         <div className="flex items-center">
           <img src={logoUrl} alt="Pocket Counsel Logo" className="h-10 w-10 mr-4 rounded-full" />
           <h1 className="text-2xl font-bold">Pocket Counsel RAG</h1>
@@ -163,10 +194,10 @@ function ChatInterface() {
       </header>
 
       {/* Legal Areas Panel */}
-      <div className="bg-[#8B7355] p-3 text-[#F5F5DC] text-sm">
+      <div className="bg-[#8f795e] p-3 text-[#F5F5DC] text-sm">
         <div className="flex items-center justify-between">
           <span className="font-semibold">📚 Legal Areas Available:</span>
-          <span className="bg-[#6B4423] px-2 py-1 rounded text-xs">3,913 vectors</span>
+          <span className="bg-[#9c6b43] px-2 py-1 rounded text-xs">3,913 vectors</span>
         </div>
         <div className="mt-2 flex flex-wrap gap-2">
           {legalAreas.map((area, index) => (
@@ -180,13 +211,13 @@ function ChatInterface() {
       {/* Main chat area */}
       <main className="flex-1 overflow-y-auto p-4 chat-scrollbar">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-[#F5F5DC]/70">
+          <div className="flex flex-col items-center justify-center h-full text-[#4A3428] welcome-text-container">
             <div className="text-6xl mb-4">⚖️</div>
-            <div className="text-xl font-semibold mb-2">Welcome to Pocket Counsel</div>
-            <div className="text-center max-w-md">
+            <div className="text-xl font-semibold mb-2 text-[#6B4423] bg-[#F5F5DC]/90 px-4 py-2 rounded-lg shadow-lg border border-[#6B4423]/20">Welcome to Pocket Counsel</div>
+            <div className="text-center max-w-md text-[#4A3428] bg-[#F5F5DC]/80 px-6 py-4 rounded-lg shadow-md border border-[#4A3428]/20">
               Your AI-powered legal assistant for Zambian law. Ask me anything about business law, employment, property, criminal law, family law, and more.
             </div>
-            <div className="mt-6 text-sm text-[#F5F5DC]/50">
+            <div className="mt-6 text-sm text-[#6B4423] bg-[#F5F5DC]/90 px-3 py-2 rounded-lg shadow-sm border border-[#6B4423]/20">
               Try: "What are the minimum wage requirements in Zambia?"
             </div>
           </div>
@@ -307,6 +338,7 @@ function ChatInterface() {
         <div className="text-xs text-[#F5F5DC]/50 mt-2 text-center">
           Your queries are processed using Vertex AI Vector Search and Gemini AI
         </div>
+      </div>
       </div>
     </div>
   );

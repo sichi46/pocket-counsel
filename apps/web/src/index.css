@@ -10,11 +10,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-[#8B7355] hover:bg-[#6B4423] text-[#F5F5DC] font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-[#8b755a] hover:bg-[#774f2f] text-[#F5F5DC] font-medium py-2 px-4 rounded-lg transition-colors;
   }
   
   .btn-secondary {
-    @apply bg-[#6B4423] hover:bg-[#4A3428] text-[#F5F5DC] font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-[#674326] hover:bg-[#8f644e] text-[#F5F5DC] font-medium py-2 px-4 rounded-lg transition-colors;
   }
 
   /* Custom scrollbar for the chat */
@@ -33,5 +33,196 @@
 
   .chat-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #6B4423;
+  }
+
+  /* Background image styles for better cross-browser support */
+  .bg-image-container {
+    background-image: var(--bg-image-url);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    position: relative;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Enhanced overlay with gradient for better text readability */
+  .bg-overlay {
+    background: linear-gradient(
+      135deg,
+      rgba(238, 233, 231, 0.85) 0%,
+      rgba(238, 233, 231, 0.75) 50%,
+      rgba(238, 233, 231, 0.9) 100%
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Alternative overlay for better contrast */
+  .bg-overlay-alt {
+    background: linear-gradient(
+      135deg,
+      rgba(107, 68, 35, 0.1) 0%,
+      rgba(238, 233, 231, 0.8) 50%,
+      rgba(139, 115, 85, 0.1) 100%
+    );
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* Fallback for browsers that don't support backdrop-blur */
+  @supports not (backdrop-filter: blur(4px)) {
+    .bg-overlay {
+      background-color: rgba(238, 233, 231, 0.9) !important;
+    }
+  }
+
+  /* Mobile optimization for background images */
+  @media (max-width: 768px) {
+    .bg-image-container {
+      background-attachment: scroll;
+      background-size: cover;
+    }
+    
+    .bg-overlay {
+      background: linear-gradient(
+        135deg,
+        rgba(238, 233, 231, 0.9) 0%,
+        rgba(238, 233, 231, 0.85) 100%
+      );
+    }
+
+    /* Mobile welcome text optimization */
+    .welcome-text-container .text-xl {
+      font-size: 1.125rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .welcome-text-container .text-center {
+      font-size: 0.875rem;
+      padding: 1rem 1.5rem;
+      max-width: 90%;
+    }
+
+    .welcome-text-container .text-sm {
+      font-size: 0.75rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  /* Tablet optimization */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .bg-overlay {
+      background: linear-gradient(
+        135deg,
+        rgba(238, 233, 231, 0.8) 0%,
+        rgba(238, 233, 231, 0.7) 50%,
+        rgba(238, 233, 231, 0.85) 100%
+      );
+    }
+  }
+
+  /* High DPI displays */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .bg-image-container {
+      background-size: cover;
+    }
+  }
+
+  /* Welcome text enhancement for better readability */
+  .welcome-text-container {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .welcome-text-container .text-xl {
+    font-weight: 700;
+    letter-spacing: 0.025em;
+  }
+
+  .welcome-text-container .text-center {
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .welcome-text-container .text-sm {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* Hover effects for welcome text elements */
+  .welcome-text-container .text-xl:hover,
+  .welcome-text-container .text-center:hover,
+  .welcome-text-container .text-sm:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  /* Enhanced shadows for better depth */
+  .welcome-text-container .bg-\[#F5F5DC\]\/90 {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .welcome-text-container .bg-\[#F5F5DC\]\/80 {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Text enhancement for maximum readability */
+  .welcome-text-container .text-xl,
+  .welcome-text-container .text-center,
+  .welcome-text-container .text-sm {
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.8));
+  }
+
+  /* Ensure text is always readable */
+  .welcome-text-container .bg-\[#F5F5DC\]\/90,
+  .welcome-text-container .bg-\[#F5F5DC\]\/80 {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Landscape orientation optimization */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .bg-image-container {
+      background-size: cover;
+      background-position: center top;
+    }
+  }
+
+  /* Portrait orientation optimization */
+  @media (orientation: portrait) and (max-width: 500px) {
+    .bg-image-container {
+      background-size: cover;
+      background-position: center center;
+    }
+  }
+
+  /* Subtle background animation for better user experience */
+  .bg-image-container {
+    animation: subtle-zoom 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes subtle-zoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.05);
+    }
+  }
+
+  /* Ensure content remains readable during animation */
+  .bg-overlay {
+    animation: overlay-fade 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes overlay-fade {
+    0% {
+      opacity: 0.85;
+    }
+    100% {
+      opacity: 0.9;
+    }
   }
 }

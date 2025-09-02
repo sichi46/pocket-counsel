@@ -21,12 +21,6 @@ config/environments/staging.env
 config/environments/production.env
 
 # Sensitive Documentation (keep only core docs)
-docs/github-secrets-setup.md
-docs/environment-strategy.md
-docs/setup-guide.md
-docs/milestone-1-audit.md
-docs/architecture-review.md
-docs/git-branch-strategy.md
 
 # IDE
 .vscode/
@@ -71,13 +65,7 @@ ui-debug.log
 # Turbo
 .turbo/ 
 
-.docs/
-Commands.md
-product-design.md
-project-structure.md
-staging-production-setup.md
-technical-design.md
-to-do.mdd
+
 
 
 

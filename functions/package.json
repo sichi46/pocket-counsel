@@ -12,7 +12,8 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "clean": "if exist dist rmdir /s /q dist",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "python ../scripts/test_enhanced_rag.py"
   },
   "dependencies": {
     "@google-cloud/aiplatform": "^4.0.0",
